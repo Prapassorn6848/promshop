@@ -11,7 +11,7 @@ class Login extends Component {
     render() {
         return ( 
             <div style={{width:"100%",height:"100vh",backgroundColor:"#29292B"}}>
-                <div style={{fontSize:'60px',color:"#FFB636",alignSelf:'center',}}>
+                <div style={{Width:"50%",fontSize:'120px',color:"#FFB636",textAlign:'center',borderWidth:'bold'}}>
                     Hello world
                 </div>
             </div>
