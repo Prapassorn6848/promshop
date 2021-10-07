@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import history from '../history'
-import firestore from "../firebase/firestore"
 
 class Login extends Component {
     constructor(props) {
@@ -11,8 +9,12 @@ class Login extends Component {
     }
 
     render() {
-        return (
-            <div></div>
+        return ( 
+            <div style={{width:"100%",height:"100vh",backgroundColor:"#29292B"}}>
+                <div style={{fontSize:'60px',color:"#FFB636",alignSelf:'center',}}>
+                    Hello world
+                </div>
+            </div>
         )
     }
 }

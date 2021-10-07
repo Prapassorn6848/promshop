@@ -1,6 +1,8 @@
 import { Route, Switch, Router } from 'react-router-dom';
-import React, { Component } from 'react'
-import history from './history'
+import React, { Component } from 'react';
+import history from './history';
+import Login from './Component/Login';
+
 
 class App extends Component {
   constructor(props) {
@@ -11,7 +13,7 @@ class App extends Component {
   render() {
 
     return (
-      <Provider store={configureStore}>
+
 
         <Router history={history}>
           <Switch>
@@ -19,7 +21,7 @@ class App extends Component {
           </Switch>
         </Router>
 
-      </Provider>
+
     )
   }
 }
