@@ -48,6 +48,7 @@ class Login extends Component {
         super(props);
         this.state = {
             modalPasswrong: false,
+            modalChangePass: false,
         };
     }
 
@@ -59,6 +60,17 @@ class Login extends Component {
 
     handleModalPasswrongOpen = () => {
         this.setState({ modalPasswrong: true });
+    };
+    //////////////////////////////////////////////
+
+    //////////////////////////////////////////////
+    handleModalChangePassClose = (e) => {
+        this.setState({ modalChangePass: false });
+    };
+
+
+    handleModalChangePassOpen = () => {
+        this.setState({ modalChangePass: true });
     };
     //////////////////////////////////////////////
 
@@ -90,10 +102,10 @@ class Login extends Component {
                             <input style={{ marginTop:'10px',width: 500,height:40,color:"black"}} type="password" name="email"/>
                         </div>
                     </div>
-                    <div style={{marginLeft:'60%'}} onClick={this.handleModalPasswrongOpen}>
-                                <Button variant="link" onClick={() => history.push({pathname: '/forgotPass',})}>
-                                    Forgotten password ?
-                                </Button>
+                    <div style={{marginLeft:'60%'}}>
+                        <Button variant="link" onClick={this.handleModalChangePassOpen}>
+                            Forgotten password ?
+                        </Button>
                     </div>
                     <div style={{textAlign:'center', paddingTop: "20px"}}>
                         <ButtonLogin style={{fontSize:'28px',fontWeight:'bold',color:'#29292B',paddingTop: "2px"}}>
@@ -121,6 +133,44 @@ class Login extends Component {
                             </div>
                             <div style={{textAlign:'center', paddingTop: "5"}}>
                                 <ButtonTry style={{ fontSize: 20 }} onClick={this.handleModalPasswrongClose}>OK</ButtonTry>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div hidden={!this.state.modalChangePass}>
+                    <div className="modal-backgroundChangePass">
+                        <div className="modal-cardChangePass">
+                            <div  style={{textAlign:'center',justifyContent:"center",alignItems:"center"}}>
+                                <div style={{height:"5vh"}}></div>
+                                <a1 style={{color:"#29292B",fontSize:"32px", fontWeight: "bold"}}>CHANGE PASSWORD</a1>
+                                <div style={{height:"0.1vh"}}></div>
+                                <a1 style={{color:"#29292B",fontSize:"16px"}}>90 days have passed since Your last password change.</a1>
+                                <div style={{height:"0.1vh"}}></div>
+                                <a1 style={{color:"#29292B",fontSize:"16px"}}>Insert a new password and retype it in blow form.</a1>
+                                
+                                <div style={{textAlign:'start',marginLeft:"14%",marginTop:'20px'}}>
+                                    <a1 style={{color:"",fontSize:"20px"}} type="text">Old Password</a1>
+                                </div>
+                                <div style={{textAlign:'center'}}>
+                                    <input style={{ width: 400,height:40,color:"black"}} type="text" name="OldPass"/>
+                                </div>
+                                <div style={{textAlign:'start',marginLeft:"14%",marginTop:'10px'}}>
+                                    <a1 style={{color:"",fontSize:"20px"}} type="text">New Password</a1>
+                                </div>
+                                <div style={{textAlign:'center'}}>
+                                    <input style={{ width: 400,height:40,color:"black"}} type="text" name="NewPass"/>
+                                </div>
+                                <div style={{textAlign:'start',marginLeft:"14%",marginTop:'10px'}}>
+                                    <a1 style={{color:"",fontSize:"20px"}} type="text">Confirm New Password</a1>
+                                </div>
+                                <div style={{textAlign:'center'}}>
+                                    <input style={{ width: 400,height:40,color:"black"}} type="text" name="ConfirmNewPass"/>
+                                </div>
+                                <div style={{height:"6vh"}}></div>
+                            </div>
+                            <div style={{textAlign:'end', paddingTop: "5"}}>
+                                <ButtonTry style={{ fontSize: 20 }} onClick={this.handleModalChangePassClose}>OK</ButtonTry>
                             </div>
                         </div>
                     </div>
