@@ -7,6 +7,7 @@
     background-color: rgba(0, 0, 0, 0.1)!important;
     ;
   }
+
 .modal-cardPasswrong {
     margin: 0 auto;
     display: block;
@@ -26,11 +27,32 @@
     background-color: rgba(0, 0, 0, 0.1)!important;
     ;
   }
+  .modal-backgroundPassreset {
+    position: absolute;
+    right: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(224, 216, 216, 0.842)!important;
+    ;
+  }
+  
 .modal-cardChangePass {
     margin: 0 auto;
     display: block;
     margin-top: 6%;
     width: 550px;
+    height: 500px;
+    background-color: white;
+    border-radius: 15px;
+  }
+    
+
+  .modal-cardPassreset {
+    margin: 0 auto;
+    display: block;
+    margin-top: 90px;
+    width: 950px;
     height: 500px;
     background-color: white;
     border-radius: 15px;
