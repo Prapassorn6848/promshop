@@ -1,21 +1,14 @@
 import React, { Component } from 'react'
-
-import styled, { css } from 'styled-components'
+import history from '../history'
 import './Modal.css';
+import styled, { css } from 'styled-components'
+import Button from 'react-bootstrap/Button';
 
-const FontHead = styled.div`
-  && {
-    color: #000000;
-    font-size: 32px;
-    font-weight: bold;
-  }
-`
-const Fontdesc = styled.div`
-  && {
-    color: #000000;
-    font-size: 24px;
-  }
-`
+import {FaUser, FaLock} from "react-icons/fa";
+
+
+
+
 const ButtonTry = styled.button`
   background: #FFB636;
   border: 2px;
@@ -24,6 +17,28 @@ const ButtonTry = styled.button`
   height: 48px;
   border-radius: 12px;
   margin: 0 1em;
+  padding: 0.5em 1.75em;
+`
+
+const ButtonLogin = styled.button`
+  background: #FFB636;
+  border: 2px;
+  color: #ffffff;
+  width: 200px;
+  height: 48px;
+  border-radius: 30px;
+  margin: 1 1em;
+  padding: 0.5em 1.75em;
+`
+
+const ButtonCreateAc = styled.button`
+  background: #FFB636;
+  border: 2px;
+  color: #ffffff;
+  width: 330px;
+  height: 48px;
+  border-radius: 30px;
+  margin: 1 1em;
   padding: 0.5em 1.75em;
 `
 
@@ -62,48 +77,48 @@ class Login extends Component {
                     </div>
                     <div style={{alignItems:"center"}}>
                         <div style={{marginLeft:'17%'}}>
-                            <a1 style={{color:"#FFB636",fontSize:"20px"}} type="text">Username or E-mail</a1>
+                            <a1 style={{color:"#FFB636",fontSize:"20px"}} type="text"> <FaUser />   Username or E-mail</a1>
                         </div>
                         <div style={{textAlign:'center'}}>
                             <input style={{ marginTop:'10px',width: 500,height:40,color:"black"}} type="text" name="email"/>
                         </div>
                         <div style={{marginLeft:'17%',marginTop:'2%'}}>
-                            <a1 style={{color:"#FFB636",fontSize:"20px"}} type="text">Password</a1>
+                            <a1 style={{color:"#FFB636",fontSize:"20px"}} type="text"><FaLock />   Password</a1>
                         </div>
                         <div style={{textAlign:'center'}} >
-                            <input style={{ marginTop:'10px',width: 500,height:40,color:"black"}} type="text" name="email"/>
+                            <input style={{ marginTop:'10px',width: 500,height:40,color:"black"}} type="password" name="email"/>
                         </div>
                     </div>
-                    <div style={{marginLeft:'60%'}}>
-                        <a1 style={{color:"#FF0000",fontSize:"20px"}}>forgotten password ?</a1>
+                    <div style={{marginLeft:'60%'}} onClick={this.handleModalPasswrongOpen}>
+                                <Button variant="link" onClick={() => history.push({pathname: '/forgotPass',})}>
+                                    Forgotten password ?
+                                </Button>
                     </div>
-                    <div style={{textAlign:'center',marginTop:'10%'}}>
-                        <button style={{ width: 200,height:50,borderRadius:'40px',fontSize:'30px',fontWeight:'bold',fontFamily:"initial",color:'#FFB636',cursor: 'pointer'}}>
+                    <div style={{textAlign:'center', paddingTop: "20px"}}>
+                        <ButtonLogin style={{fontSize:'28px',fontWeight:'bold',color:'#29292B',paddingTop: "2px"}}>
                             Login
-                        </button>
+                        </ButtonLogin>
                     </div>
-                    <div style={{textAlign:'center',marginTop:'3%'}}>
-                        <button style={{ width: 300,height:50,borderRadius:'40px',fontSize:'30px',fontWeight:'bold',fontFamily:"initial",color:"#FFB636",cursor: 'pointer'}}>
+                    <div style={{textAlign:'center', paddingTop: "35px"}}>
+                        <ButtonCreateAc style={{fontSize:'24px',fontWeight:'bold',color:"#29292B",paddingTop: "5px"}}>
                             Create New Account
-                        </button>
+                        </ButtonCreateAc>
                     </div>
                 </div>
 
                 <div hidden={!this.state.modalPasswrong}>
                     <div className="modal-backgroundPasswrong">
                         <div className="modal-cardPasswrong">
-                            <div>
-                                <FontHead style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}} >
-                                    <p>Login Failed</p>
-                                </FontHead>
+                            <div  style={{textAlign:'center',justifyContent:"center",alignItems:"center"}}>
+                                <div style={{height:"2vh"}}></div>
+                                <a1 style={{color:"#29292B",fontSize:"32px", fontWeight: "bold"}}>Login Failed</a1>
+                                <div style={{height:"1.8vh"}}></div>
+                                <a1 style={{color:"#29292B",fontSize:"24px"}}>Username or password is incorrect.</a1>
+                                <div style={{height:"0.1vh"}}></div>
+                                <a1 style={{color:"#29292B",fontSize:"24px"}}>Please try again.</a1>
+                                <div style={{height:"5vh"}}></div>
                             </div>
-                            <div>
-                                <Fontdesc style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}} >
-                                    <p>Your Email or password is incorrect.</p>
-                                    <p>Please try again.</p>
-                                </Fontdesc>
-                            </div>
-                            <div style={{ paddingLeft: 270, paddingTop: 10 }}>
+                            <div style={{textAlign:'center', paddingTop: "5"}}>
                                 <ButtonTry style={{ fontSize: 20 }} onClick={this.handleModalPasswrongClose}>OK</ButtonTry>
                             </div>
                         </div>
