@@ -48,6 +48,7 @@ class Login extends Component {
         super(props);
         this.state = {
             modalPasswrong: false,
+            modalPassreset: false,
         };
     }
 
@@ -61,7 +62,15 @@ class Login extends Component {
         this.setState({ modalPasswrong: true });
     };
     //////////////////////////////////////////////
+    handleModalPasswrongClose = (e) => {
+        this.setState({ modalPassreset: false });
+    };
 
+
+    handleModalPasswrongOpen = () => {
+        this.setState({ modalPassreset: true });
+    };
+    ///////////////////////////////////////////////
 
     render() {
         return ( 
@@ -90,8 +99,8 @@ class Login extends Component {
                             <input style={{ marginTop:'10px',width: 500,height:40,color:"black"}} type="password" name="email"/>
                         </div>
                     </div>
-                    <div style={{marginLeft:'60%'}} onClick={this.handleModalPasswrongOpen}>
-                                <Button variant="link" onClick={() => history.push({pathname: '/forgotPass',})}>
+                    <div style={{marginLeft:'60%'}}>
+                                <Button variant="link" onClick={this.handleModalPasswrongOpen}>
                                     Forgotten password ?
                                 </Button>
                     </div>
@@ -122,6 +131,30 @@ class Login extends Component {
                             <div style={{textAlign:'center', paddingTop: "5"}}>
                                 <ButtonTry style={{ fontSize: 20 }} onClick={this.handleModalPasswrongClose}>OK</ButtonTry>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div hidden={!this.state.modalPassreset}>
+                    <div className="modal-backgroundPassreset">
+                        <div className="modal-cardPassreset">
+                            <div style={{textAlign:'center',justifyContent:"center",alignItems:"center"}}>
+                                <div style={{height:"8vh"}}></div>
+                                <a1 style={{color:"#29292B",fontSize:"40px", fontWeight: "bold"}}>Password Reset</a1>
+                                <div style={{height:"1.8vh"}}></div>
+                                <a1 style={{color:"#29292B",fontSize:"24px"}}>Enter your username or email address that you used to register. </a1>
+                                <div style={{height:"0.1vh"}}></div>
+                                <a1 style={{color:"#29292B",fontSize:"24px"}}>We'll send you an email with your username and a link to reset your password.</a1>
+                                <div style={{height:"5vh"}}></div>
+                            </div>
+                                <a1 style={{color:"#737373",fontSize:"20px", paddingLeft: "100px"}}>Email address or username</a1>
+                                <div style={{textAlign:'center'}}>
+                                    <input style={{ marginTop:'5px',width: 750, height:40, color:"black"}} type="text" name="email"/>
+                                </div>
+                                <div style={{textAlign:'center', paddingTop: "70px"}}>
+                                    <ButtonTry style={{ fontSize: 20 }} onClick={this.handleModalPasswrongClose}>SEND</ButtonTry>
+                                </div>
+                            
                         </div>
                     </div>
                 </div>
