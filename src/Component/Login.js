@@ -8,6 +8,7 @@ import {FaUser, FaLock} from "react-icons/fa";
 
 
 
+import './Style.css';
 
 const ButtonTry = styled.button`
   background: #FFB636;
