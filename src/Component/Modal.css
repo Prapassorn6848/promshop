@@ -37,3 +37,43 @@
     background-color: white;
     border-radius: 15px;
   }
+
+  .modal-backgroundSendSuccess {
+    position: absolute;
+    right: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.1)!important;
+    ;
+  }
+
+.modal-cardSendSuccess {
+    margin: 0 auto;
+    display: block;
+    margin-top: 220px;
+    width: 600px;
+    height: 280px;
+    background-color: white;
+    border-radius: 15px;
+  }
+
+  .modal-backgroundRegisSuccess {
+    position: absolute;
+    right: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.1)!important;
+    ;
+  }
+
+.modal-cardRegisSuccess {
+    margin: 0 auto;
+    display: block;
+    margin-top: 220px;
+    width: 550px;
+    height: 250px;
+    background-color: white;
+    border-radius: 15px;
+  }

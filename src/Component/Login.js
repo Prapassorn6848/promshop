@@ -6,9 +6,10 @@ import Button from 'react-bootstrap/Button';
 
 import {FaUser, FaLock} from "react-icons/fa";
 
-
-
 import './Style.css';
+import { Success, Sendmail } from '../pic';
+import { Send } from '@material-ui/icons';
+
 
 const ButtonTry = styled.button`
   background: #FFB636;
@@ -49,6 +50,8 @@ class Login extends Component {
         this.state = {
             modalPasswrong: false,
             modalPassreset: false,
+            modalSendsuccess: false,
+            modalRegistersuccess: false,
         };
     }
 
@@ -62,15 +65,34 @@ class Login extends Component {
         this.setState({ modalPasswrong: true });
     };
     //////////////////////////////////////////////
-    handleModalPasswrongClose = (e) => {
+    handleModalPassresetClose = (e) => {
         this.setState({ modalPassreset: false });
     };
 
 
-    handleModalPasswrongOpen = () => {
+    handleModalPassresetOpen = () => {
         this.setState({ modalPassreset: true });
     };
     ///////////////////////////////////////////////
+    handleModalSendsuccessClose = (e) => {
+        this.setState({ modalSendsuccess: false });
+    };
+
+
+    handleModalSendsuccessOpen = () => {
+        this.setState({ modalSendsuccess: true });
+    };
+    ///////////////////////////////////////////////
+    handleModalRegistersuccessClose = (e) => {
+        this.setState({ modalRegistersuccess: false });
+    };
+
+
+    handleModalRegistersuccessOpen = () => {
+        this.setState({ modalRegistersuccess: true });
+    };
+    ///////////////////////////////////////////////
+
 
     render() {
         return ( 
@@ -100,7 +122,7 @@ class Login extends Component {
                         </div>
                     </div>
                     <div style={{marginLeft:'60%'}}>
-                                <Button variant="link" onClick={this.handleModalPasswrongOpen}>
+                                <Button variant="link" onClick={this.handleModalPassresetOpen}>
                                     Forgotten password ?
                                 </Button>
                     </div>
@@ -152,15 +174,54 @@ class Login extends Component {
                                     <input style={{ marginTop:'5px',width: 750, height:40, color:"black"}} type="text" name="email"/>
                                 </div>
                                 <div style={{textAlign:'center', paddingTop: "70px"}}>
-                                    <ButtonTry style={{ fontSize: 20 }} onClick={this.handleModalPasswrongClose}>SEND</ButtonTry>
-                                </div>
-                            
+                                    <ButtonTry style={{ fontSize: 20 }} onClick={this.handleModalSendsuccessOpen}>SEND</ButtonTry>
+                                </div>     
                         </div>
                     </div>
                 </div>
+
+                <div hidden={!this.state.modalSendsuccess}>
+                    <div className="modal-backgroundSendSuccess" onClick = {this.handleModalSendsuccessClose}>
+                        <div className="modal-cardSendSuccess">
+                            <div  style={{textAlign:'center',justifyContent:"center",alignItems:"center"}}>
+                                <div style={{ paddingTop: 30 }}>
+                                    <img className="picSendmail" src={Sendmail} />
+                                </div>
+                                <div style={{height:"1.5vh"}}></div>
+                                <a1 style={{color:"#29292B",fontSize:"30px", fontWeight: "bold"}}>Password Reset</a1>
+                                <div style={{height:"1vh"}}></div>
+                                <a1 style={{color:"#29292B",fontSize:"20px"}}>A message has been sent to you by email with instructions </a1>
+                                <div style={{height:"0.1vh"}}></div>
+                                <a1 style={{color:"#29292B",fontSize:"20px"}}>on how to reset your password.</a1>
+                                <div style={{height:"5vh"}}></div>
+                            </div>
+                            {/* <div style={{textAlign:'center', paddingTop: "5"}}>
+                                <ButtonTry style={{ fontSize: 20 }} onClick={this.handleModalSendsuccessClose}>OK</ButtonTry>
+                            </div> */}
+                        </div>
+                    </div>
+                </div>
+
+                <div hidden={!this.state.modalRegistersuccess}>
+                    <div className="modal-backgroundRegisSuccess" onClick = {this.handleModalRegistersuccessClose}>
+                        <div className="modal-cardRegisSuccess">
+                            <div  style={{textAlign:'center',justifyContent:"center",alignItems:"center"}}>
+                                <div style={{ paddingTop: 30 }}>
+                                    <img className="picError" src={Success} />
+                                </div>
+                                <div style={{height:"4vh"}}></div>
+                                <a1 style={{color:"#29292B",fontSize:"30px", fontWeight: "bold"}}>Register Success</a1>
+                                <div style={{height:"1.8vh"}}></div>                                
+                            </div>
+                            {/* <div style={{textAlign:'center', paddingTop: "5"}}>
+                                <ButtonTry style={{ fontSize: 20 }} onClick={this.handleModalRegistersuccessClose}>OK</ButtonTry>
+                            </div> */}
+                        </div>
+                    </div>
+                </div>
+
             </div>
         
-            
         )
     }
 }
