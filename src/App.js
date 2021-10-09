@@ -5,6 +5,7 @@ import Login from './Component/Login';
 import View from './Component/View';
 import History from './Component/History'
 import ForgotPass from './Component/ForgotPass'
+import Sign_Up from './Component/Sign_Up'
 
 
 class App extends Component {
@@ -21,6 +22,7 @@ class App extends Component {
         <Router history={history}>
           <Switch>
             <Route exact path="/view" component={View} />
+            <Route exact path="/signup" component={Sign_Up} />
             <Route exact path="/forgotpass" component={ForgotPass} />
             <Route exact path="/" component={Login} />
             <Route exact path="/history" component={History} />
