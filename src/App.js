@@ -6,6 +6,8 @@ import View from './Component/View';
 import History from './Component/History'
 import ForgotPass from './Component/ForgotPass'
 import Sign_Up from './Component/Sign_Up'
+import Home from './Component/Home'
+import Edit from './Component/Edit'
 
 
 class App extends Component {
@@ -26,6 +28,9 @@ class App extends Component {
             <Route exact path="/forgotpass" component={ForgotPass} />
             <Route exact path="/" component={Login} />
             <Route exact path="/history" component={History} />
+            <Route exact path="/edit" component={Edit} />
+            <Route exact path="/home" component={Home} />
+
           </Switch>
         </Router>
 

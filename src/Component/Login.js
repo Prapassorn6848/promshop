@@ -9,6 +9,7 @@ import { Success, Sendmail } from '../pic';
 import { Send } from '@material-ui/icons';
 import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 import ReCAPTCHA from "react-google-recaptcha";
+import firestore from '../firebase/firestore'
 
 const TEST_SITE_KEY = "6Le9Zb8cAAAAAP1uib6Occmbc5Kc7xX1PFgzklYX";
 const DELAY = 1500;
@@ -51,16 +52,48 @@ class Login extends Component {
         super(props);
         this.state = {
             modalPasswrong: false,
-            modalChangePass: false,
-            modalPassreset: false,
             modalSendsuccess: false,
             modalRegistersuccess: false,
             callback: "not fired",
             value: "[empty]",
             load: false,
-            expired: "false"
+            expired: "false",
+            user :null,
+            pass : null,
+            email:null,
         };
         this._reCaptchaRef = React.createRef();
+    }
+
+
+    onLogin = () => {
+
+        firestore.getUser(this.state.email, this.getSuccess, this.getReject)
+
+    };
+
+    getSuccess = (querySnapshot) => {
+        let user;
+        querySnapshot.forEach(doc => {
+            user = doc.data()
+            user.id = doc.id
+            this.setState({ user: user })
+        });
+        /*console.log(user.pass)
+        console.log(this.state.user.pass)*/
+        if (user.pass === this.state.pass) {
+            history.push("/home")
+            /*window.location.href="/home"*/
+        } else {
+            alert("Email or Password is incorrect")
+        }
+        /*console.log(this.state.account)*/
+    }
+
+    getReject = (error) => {
+        console.log(error)
+        //this.handleModalErrorOpen()
+        // alert("Email or Password is incorrect")
     }
 
 
@@ -78,21 +111,7 @@ class Login extends Component {
         this.setState({ modalPassreset: false });
     };
 
-    //////////////////////////////////////////////
-    handleModalChangePassClose = (e) => {
-        this.setState({ modalChangePass: false });
-    };
 
-
-    handleModalChangePassOpen = () => {
-        this.setState({ modalChangePass: true });
-    };
-    //////////////////////////////////////////////
-
-
-    handleModalPassresetOpen = () => {
-        this.setState({ modalPassreset: true });
-    };
     ///////////////////////////////////////////////
     handleModalSendsuccessClose = (e) => {
         this.setState({ modalSendsuccess: false });
@@ -170,18 +189,24 @@ class Login extends Component {
                         <div style={{ marginLeft: '17%' }}>
                             <a1 style={{ color: "#FFB636", fontSize: "20px" }} type="text"> <FaUser />  Username or E-mail</a1>
                         </div>
+
                         <div style={{ textAlign: 'center' }}>
-                            <input style={{ marginTop: '10px', width: 500, height: 40, color: "black" }} type="text" name="email" />
+                            <input style={{ marginTop: '10px', width: 500, height: 40, color: "black" }} type="text" name="email"
+                                onChange={txt => this.setState({ email: txt.target.value })} />
                         </div>
+
                         <div style={{ marginLeft: '17%', marginTop: '2%' }}>
                             <a1 style={{ color: "#FFB636", fontSize: "20px" }} type="text"><FaLock />   Password</a1>
                         </div>
                         <div style={{ textAlign: 'center' }} >
-                            <input style={{ marginTop: '10px', width: 500, height: 40, color: "black" }} type="password" name="email" />
+                            <input style={{ marginTop: '10px', width: 500, height: 40, color: "black" }} type="password" name="email"
+                                onChange={txt => this.setState({ pass: txt.target.value })} />
                         </div>
                     </div>
                     <div style={{ marginLeft: '60%' }}>
-                        <Button variant="link" onClick={this.handleModalPassresetOpen}>
+                        <Button variant="link" onClick={() => history.push({
+                            pathname: '/forgotpass',
+                        })}>
                             Forgotten password ?
                         </Button>
                     </div>
@@ -189,20 +214,22 @@ class Login extends Component {
                         <ReCAPTCHA sitekey="6Le9Zb8cAAAAAP1uib6Occmbc5Kc7xX1PFgzklYX" onChange={this.onChange} />
                     </div>
                     <div style={{ textAlign: 'center', paddingTop: "20px" }}>
-                        <ButtonLogin style={{ fontSize: '28px', fontWeight: 'bold', color: '#29292B', paddingTop: "2px" }}>
+                        <ButtonLogin style={{ fontSize: '28px', fontWeight: 'bold', color: '#29292B', paddingTop: "2px" }}
+                            onClick={this.onLogin}>
                             Login
                         </ButtonLogin>
                     </div>
                     <div style={{ textAlign: 'center', paddingTop: "35px" }}>
-                        <ButtonCreateAc style={{ fontSize: '24px', fontWeight: 'bold', color: "#29292B", paddingTop: "5px" }}>
+                        <ButtonCreateAc style={{ fontSize: '24px', fontWeight: 'bold', color: "#29292B", paddingTop: "5px" }}
+                            onClick={() => history.push({ pathname: '/signup', })}>
                             Create New Account
                         </ButtonCreateAc>
                     </div>
 
-                   
 
-                    
-                    
+
+
+
                 </div>
 
                 <div hidden={!this.state.modalPasswrong}>
@@ -224,66 +251,7 @@ class Login extends Component {
                     </div>
                 </div>
 
-                <div hidden={!this.state.modalChangePass}>
-                    <div className="modal-backgroundChangePass">
-                        <div className="modal-cardChangePass">
-                            <div style={{ textAlign: 'center', justifyContent: "center", alignItems: "center" }}>
-                                <div style={{ height: "5vh" }}></div>
-                                <a1 style={{ color: "#29292B", fontSize: "32px", fontWeight: "bold" }}>CHANGE PASSWORD</a1>
-                                <div style={{ height: "0.1vh" }}></div>
-                                <a1 style={{ color: "#29292B", fontSize: "16px" }}>90 days have passed since Your last password change.</a1>
-                                <div style={{ height: "0.1vh" }}></div>
-                                <a1 style={{ color: "#29292B", fontSize: "16px" }}>Insert a new password and retype it in blow form.</a1>
-
-                                <div style={{ textAlign: 'start', marginLeft: "14%", marginTop: '20px' }}>
-                                    <a1 style={{ color: "", fontSize: "20px" }} type="text">Old Password</a1>
-                                </div>
-                                <div style={{ textAlign: 'center' }}>
-                                    <input style={{ width: 400, height: 40, color: "black" }} type="text" name="OldPass" />
-                                </div>
-                                <div style={{ textAlign: 'start', marginLeft: "14%", marginTop: '10px' }}>
-                                    <a1 style={{ color: "", fontSize: "20px" }} type="text">New Password</a1>
-                                </div>
-                                <div style={{ textAlign: 'center' }}>
-                                    <input style={{ width: 400, height: 40, color: "black" }} type="text" name="NewPass" />
-                                </div>
-                                <div style={{ textAlign: 'start', marginLeft: "14%", marginTop: '10px' }}>
-                                    <a1 style={{ color: "", fontSize: "20px" }} type="text">Confirm New Password</a1>
-                                </div>
-                                <div style={{ textAlign: 'center' }}>
-                                    <input style={{ width: 400, height: 40, color: "black" }} type="text" name="ConfirmNewPass" />
-                                </div>
-                                <div style={{ height: "6vh" }}></div>
-                            </div>
-                            <div style={{ textAlign: 'end', paddingTop: "5" }}>
-                                <ButtonTry style={{ fontSize: 20 }} onClick={this.handleModalChangePassClose}>OK</ButtonTry>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div hidden={!this.state.modalPassreset}>
-                    <div className="modal-backgroundPassreset">
-                        <div className="modal-cardPassreset">
-                            <div style={{ textAlign: 'center', justifyContent: "center", alignItems: "center" }}>
-                                <div style={{ height: "8vh" }}></div>
-                                <a1 style={{ color: "#29292B", fontSize: "40px", fontWeight: "bold" }}>Password Reset</a1>
-                                <div style={{ height: "1.8vh" }}></div>
-                                <a1 style={{ color: "#29292B", fontSize: "24px" }}>Enter your username or email address that you used to register. </a1>
-                                <div style={{ height: "0.1vh" }}></div>
-                                <a1 style={{ color: "#29292B", fontSize: "24px" }}>We'll send you an email with your username and a link to reset your password.</a1>
-                                <div style={{ height: "5vh" }}></div>
-                            </div>
-                            <a1 style={{ color: "#737373", fontSize: "20px", paddingLeft: "100px" }}>Email address or username</a1>
-                            <div style={{ textAlign: 'center' }}>
-                                <input style={{ marginTop: '5px', width: 750, height: 40, color: "black" }} type="text" name="email" />
-                            </div>
-                            <div style={{ textAlign: 'center', paddingTop: "70px" }}>
-                                <ButtonTry style={{ fontSize: 20 }} onClick={this.handleModalSendsuccessOpen}>SEND</ButtonTry>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
 
                 <div hidden={!this.state.modalSendsuccess}>
                     <div className="modal-backgroundSendSuccess" onClick={this.handleModalSendsuccessClose}>
@@ -325,7 +293,7 @@ class Login extends Component {
                     </div>
                 </div>
 
-            </div>
+            </div >
 
         )
     }

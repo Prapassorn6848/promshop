@@ -22,6 +22,19 @@ class Firestore {
         }
         this.db = firebase.firestore();
     }
+    getUser = (email, success, reject) => {
+        firebase
+            .firestore()
+            .collection('User')
+            .where('email', '==', email)
+            .get()
+            .then(function (querySnapshot) {
+                success(querySnapshot);
+            })
+            .catch(function (err) {
+                reject(err);
+            });
+    }
 }
 const firestore = new Firestore();
 export default firestore;

@@ -80,8 +80,8 @@
     color: red;
     text-align: center;
   }
-  .button {
-      width: 20%;
+  .buttonfern {
+    width: 20%;
     height: 6vh;
     background-color: #FFB636; 
     border: none;
@@ -129,14 +129,14 @@
     color:#FFB636;
     text-align: start;
 }
-.button span {
+.buttonfern span {
     cursor: pointer;
     display: inline-block;
     position: relative;
     transition: 0.5s;
   }
   
-.button span:after {
+.buttonfern span:after {
     content: '\00bb';
     position: absolute;
     opacity: 0;
@@ -145,14 +145,15 @@
     transition: 0.5s;
   }
   
-.button:hover span {
+.buttonfern:hover span {
     padding-right: 25px;
   }
   
-.button:hover span:after {
+.buttonfern:hover span:after {
     opacity: 1;
     right: 0;
   }
+ 
   .button {
     display: inline-block;
     border-radius: 4px;
