@@ -77,12 +77,6 @@ class Login extends Component {
         }
     }
 
-<<<<<<< HEAD
-=======
-    onLogin = () => {
-
-        firestore.getUser(this.state.email, this.getSuccess, this.getReject)
->>>>>>> 8be3d6490935edf681e45901162d5f1d8d17a19d
 
 
     getSuccess = (querySnapshot) => {
