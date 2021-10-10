@@ -22,6 +22,13 @@ class Sign_Up extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            firstname:'',
+            lastname:'',
+            username:'',
+            email:'',
+            passwd:'',
+            gender: '',
+            position:'',
 
         };
     }
@@ -44,8 +51,10 @@ class Sign_Up extends Component {
                     </div> 
                     <div style={{direction:'row'}}>
                         <div style={{textAlig:'left',marginLeft:'35%'}}>
-                            <input style={{ marginTop:'10px',width:200,height:30,color:"black"}} type="text" name="first-name"/>
-                            <input style={{ marginTop:'10px',width:200,height:30,color:"black",marginLeft:'5%'}} type="text" name="last-name"/>
+                            <input style={{ marginTop:'10px',width:200,height:30,color:"black"}} type="text" name="first-name"
+                            onChange={txt => this.setState({ firstname: txt.target.value })}/>
+                            <input style={{ marginTop:'10px',width:200,height:30,color:"black",marginLeft:'5%'}} type="text" name="last-name"
+                            onChange={txt => this.setState({ lastname: txt.target.value })}/>
                         </div>                   
                     </div>
                </div>
@@ -57,8 +66,10 @@ class Sign_Up extends Component {
                         </div>
                     </div> 
                     <div style={{textAlign:'left', marginLeft:'35%', direction:'row'}}>
-                        <input style={{ marginTop:'10px',width:200,height:30,color:"black"}} type="text" name="username"/>
-                        <input style={{ marginTop:'10px',width:200,height:30,color:"black",marginLeft:'5%'}} type="text" name="email"/>
+                        <input style={{ marginTop:'10px',width:200,height:30,color:"black"}} type="text" name="username"
+                        onChange={txt => this.setState({ username: txt.target.value })}/>
+                        <input style={{ marginTop:'10px',width:200,height:30,color:"black",marginLeft:'5%'}} type="text" name="email"
+                        onChange={txt => this.setState({ email: txt.target.value })}/>
                     </div>
                 </div>
                 <div style={{alignItems:"center"}}>
@@ -68,7 +79,8 @@ class Sign_Up extends Component {
                         </div>
                     </div> 
                     <div style={{textAlign:'left', marginLeft:'35%'}}>
-                        <input style={{ marginTop:'10px',width:460,height:30,color:"black"}} type="text" name="password"/>
+                        <input style={{ marginTop:'10px',width:460,height:30,color:"black"}} type="text" name="password"
+                        onChange={txt => this.setState({ passwd: txt.target.value })}/>
                     </div>
                 </div>
                 <div style={{alignItems:"center"}}>
@@ -86,9 +98,12 @@ class Sign_Up extends Component {
                         <a1 style={{color:"#FFB636",fontSize:"16px"}} type="text">Gender</a1>
                     </div> 
                     <div style={{marginLeft:'35%',paddingTop:'0.5%'}}>
-                        <input type="radio" value="Male" name="gender" /><label style={{paddingLeft:'1%', paddingRight:'2%',color:'#FFB636'}}>Male</label>
-                        <input type="radio" value="Female" name="gender" /><label style={{paddingLeft:'1%', paddingRight:'2%',color:'#FFB636'}}> Female</label>
-                        <input type="radio" value="Other" name="gender" /><label style={{paddingLeft:'1%', paddingRight:'2%',color:'#FFB636'}}>Prefer not to say</label>
+                        <input type="radio" value="Male" name="gender" 
+                        onChange={txt => this.setState({ gender: 'Male' })}/><label style={{paddingLeft:'1%', paddingRight:'2%',color:'#FFB636'}}>Male</label>
+                        <input type="radio" value="Female" name="gender" 
+                        onChange={txt => this.setState({ gender: 'Female' })}/><label style={{paddingLeft:'1%', paddingRight:'2%',color:'#FFB636'}}> Female</label>
+                        <input type="radio" value="Other" name="gender" 
+                        onChange={txt => this.setState({ gender: 'Other' })}/><label style={{paddingLeft:'1%', paddingRight:'2%',color:'#FFB636'}}>Prefer not to say</label>
                     </div> 
                 </div>
                 <div className="Position">
