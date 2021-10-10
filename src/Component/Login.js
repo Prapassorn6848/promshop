@@ -9,6 +9,7 @@ import {FaUser, FaLock} from "react-icons/fa";
 import './Style.css';
 import { Success, Sendmail } from '../pic';
 import { Send } from '@material-ui/icons';
+import firestore from '../firebase/firestore'
 
 
 const ButtonTry = styled.button`
@@ -51,8 +52,40 @@ class Login extends Component {
             modalPasswrong: false,
             modalSendsuccess: false,
             modalRegistersuccess: false,
+            user :null,
+            pass : null,
+            email:null,
         };
     }
+
+    onLogin = () => {
+        firestore.getUser(this.state.email, this.getSuccess, this.getReject)
+    };
+
+    getSuccess = (querySnapshot) => {
+        let user;
+        querySnapshot.forEach(doc => {
+            user = doc.data()
+            user.id = doc.id
+            this.setState({ user: user })
+        });
+        /*console.log(user.pass)
+        console.log(this.state.user.pass)*/
+        if (user.pass === this.state.pass) {
+            history.push("/home")
+            /*window.location.href="/home"*/
+        } else {
+            alert("Email or Password is incorrect")
+        }
+        /*console.log(this.state.account)*/
+    }
+
+    getReject = (error) => {
+        console.log(error)
+        //this.handleModalErrorOpen()
+        // alert("Email or Password is incorrect")
+    }
+
 
     //////////////////////////////////////////////
     handleModalPasswrongClose = (e) => {
@@ -108,13 +141,15 @@ class Login extends Component {
                             <a1 style={{color:"#FFB636",fontSize:"20px"}} type="text"> <FaUser />  Username or E-mail</a1>
                         </div>
                         <div style={{textAlign:'center'}}>
-                            <input style={{ marginTop:'10px',width: 500,height:40,color:"black"}} type="text" name="email"/>
+                            <input style={{ marginTop:'10px',width: 500,height:40,color:"black"}} type="text" name="email"
+                            onChange={txt => this.setState({ email: txt.target.value })}/>
                         </div>
                         <div style={{marginLeft:'17%',marginTop:'2%'}}>
                             <a1 style={{color:"#FFB636",fontSize:"20px"}} type="text"><FaLock />   Password</a1>
                         </div>
                         <div style={{textAlign:'center'}} >
-                            <input style={{ marginTop:'10px',width: 500,height:40,color:"black"}} type="password" name="email"/>
+                            <input style={{ marginTop:'10px',width: 500,height:40,color:"black"}} type="password" name="email"
+                            onChange={txt => this.setState({ pass: txt.target.value })}/>
                         </div>
                     </div>
                     <div style={{marginLeft:'60%'}}>
@@ -125,7 +160,8 @@ class Login extends Component {
                                 </Button>
                     </div>
                     <div style={{textAlign:'center', paddingTop: "20px"}}>
-                        <ButtonLogin style={{fontSize:'28px',fontWeight:'bold',color:'#29292B',paddingTop: "2px"}}>
+                        <ButtonLogin style={{fontSize:'28px',fontWeight:'bold',color:'#29292B',paddingTop: "2px"}}
+                        onClick={this.onLogin}>
                             Login
                         </ButtonLogin>
                     </div>
