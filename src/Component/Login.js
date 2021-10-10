@@ -54,6 +54,23 @@ class Login extends Component {
         };
     }
 
+    onCheckInput = () => {
+
+        if (this.state.Pin === this.state.pinVar) {
+          console.log("Correct!!")
+          this.handleModal3Close()
+          this.setState({
+            pinMSG: ""
+          });
+        }
+        else {
+          this.setState({
+            pinMSG: "Incorrect PIN"
+          });
+          console.log("incorrect")
+        }
+      }
+
     //////////////////////////////////////////////
     handleModalPasswrongClose = (e) => {
         this.setState({ modalPasswrong: false });
@@ -107,9 +124,11 @@ class Login extends Component {
                         <div style={{marginLeft:'17%'}}>
                             <a1 style={{color:"#FFB636",fontSize:"20px"}} type="text"> <FaUser />  Username or E-mail</a1>
                         </div>
+                        
                         <div style={{textAlign:'center'}}>
-                            <input style={{ marginTop:'10px',width: 500,height:40,color:"black"}} type="text" name="email"/>
+                            <input style={{ marginTop:'10px',width: 500,height:40,color:"black"}} type="text" name="email" />
                         </div>
+                        
                         <div style={{marginLeft:'17%',marginTop:'2%'}}>
                             <a1 style={{color:"#FFB636",fontSize:"20px"}} type="text"><FaLock />   Password</a1>
                         </div>
