@@ -59,6 +59,8 @@ class ForgotPass extends Component {
     this.setState({ modal3: true });
   };
   ///////////////////////////////////////////////////////
+
+  
         onSend = (e) => {
             e.preventDefault()
             this.setState({ Pin: Math.floor(100000 + Math.random() * 900000).toString() })
