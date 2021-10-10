@@ -47,7 +47,14 @@ class Home extends Component {
     render() {
         
         return (
-            <div><h1 class="top ">CS SHOP</h1>
+            <div><h1 class="top ">Promshop SHOP</h1>
+                <h4 class="tester">Mariarty
+                <a class="button" href="#">
+                <img src="https://sv1.picz.in.th/images/2021/10/10/u4F2xu.png" alt="logout.png" /></a>
+                
+                </h4>
+                
+                <h4 class="tester2">Admin</h4>
                 <div class="text-box">
                 <a href="#"  class="btn btn btn-white btn-animate " onClick={() => history.push({pathname: '/view',})}>Stock</a>
                 </div>
