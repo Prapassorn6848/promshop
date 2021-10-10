@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import './SignStyle.css'
+import history from '../history'
+
 
 const options = [
     {
@@ -113,7 +115,8 @@ class Sign_Up extends Component {
                     </button>
                 </div>
                 <div style={{marginLeft:'48%',paddingTop:'1%'}}>
-                    <button style={{ width: 100,height:40,borderRadius:'10px',fontSize:'16px',fontFamily:"initial",color:'#ffffff',cursor: 'pointer',backgroundColor:'#29292B'}}>
+                    <button style={{ width: 100,height:40,borderRadius:'10px',fontSize:'16px',fontFamily:"initial",color:'#ffffff',cursor: 'pointer',backgroundColor:'#29292B'}}
+                    onClick={() => history.push({pathname: '/',})}>
                         Back
                     </button>
                 </div>

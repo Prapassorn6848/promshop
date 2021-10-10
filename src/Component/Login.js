@@ -50,7 +50,6 @@ class Login extends Component {
         this.state = {
             modalPasswrong: false,
             modalChangePass: false,
-            modalPassreset: false,
             modalSendsuccess: false,
             modalRegistersuccess: false,
         };
@@ -78,12 +77,6 @@ class Login extends Component {
 
     handleModalChangePassOpen = () => {
         this.setState({ modalChangePass: true });
-    };
-    //////////////////////////////////////////////
-
-
-    handleModalPassresetOpen = () => {
-        this.setState({ modalPassreset: true });
     };
     ///////////////////////////////////////////////
     handleModalSendsuccessClose = (e) => {
@@ -134,7 +127,9 @@ class Login extends Component {
                         </div>
                     </div>
                     <div style={{marginLeft:'60%'}}>
-                                <Button variant="link" onClick={this.handleModalPassresetOpen}>
+                                <Button variant="link" onClick={() => history.push({
+                                    pathname: '/forgotpass',
+                                })}>
                                     Forgotten password ?
                                 </Button>
                     </div>
@@ -144,7 +139,8 @@ class Login extends Component {
                         </ButtonLogin>
                     </div>
                     <div style={{textAlign:'center', paddingTop: "35px"}}>
-                        <ButtonCreateAc style={{fontSize:'24px',fontWeight:'bold',color:"#29292B",paddingTop: "5px"}}>
+                        <ButtonCreateAc style={{fontSize:'24px',fontWeight:'bold',color:"#29292B",paddingTop: "5px"}}  
+                        onClick={() => history.push({pathname: '/signup',})}>
                             Create New Account
                         </ButtonCreateAc>
                     </div>
@@ -203,29 +199,6 @@ class Login extends Component {
                             <div style={{textAlign:'end', paddingTop: "5"}}>
                                 <ButtonTry style={{ fontSize: 20 }} onClick={this.handleModalChangePassClose}>OK</ButtonTry>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div hidden={!this.state.modalPassreset}>
-                    <div className="modal-backgroundPassreset">
-                        <div className="modal-cardPassreset">
-                            <div style={{textAlign:'center',justifyContent:"center",alignItems:"center"}}>
-                                <div style={{height:"8vh"}}></div>
-                                <a1 style={{color:"#29292B",fontSize:"40px", fontWeight: "bold"}}>Password Reset</a1>
-                                <div style={{height:"1.8vh"}}></div>
-                                <a1 style={{color:"#29292B",fontSize:"24px"}}>Enter your username or email address that you used to register. </a1>
-                                <div style={{height:"0.1vh"}}></div>
-                                <a1 style={{color:"#29292B",fontSize:"24px"}}>We'll send you an email with your username and a link to reset your password.</a1>
-                                <div style={{height:"5vh"}}></div>
-                            </div>
-                                <a1 style={{color:"#737373",fontSize:"20px", paddingLeft: "100px"}}>Email address or username</a1>
-                                <div style={{textAlign:'center'}}>
-                                    <input style={{ marginTop:'5px',width: 750, height:40, color:"black"}} type="text" name="email"/>
-                                </div>
-                                <div style={{textAlign:'center', paddingTop: "70px"}}>
-                                    <ButtonTry style={{ fontSize: 20 }} onClick={this.handleModalSendsuccessOpen}>SEND</ButtonTry>
-                                </div>     
                         </div>
                     </div>
                 </div>
