@@ -24,7 +24,7 @@ class ForgotPass extends Component {
                     <div style={{width:'100%',height:'1vh' ,backgroundColor:'#29292B'}}></div>                    
                         <input class ='input'></input>   
                         <div style={{width:'100%',height:'2vh' ,backgroundColor:'#29292B'}}></div>
-                        <button class="button" ><span>SEND</span></button>
+                        <button class="buttonfern" ><span>SEND</span></button>
                 </div > 
           </div>
         )
