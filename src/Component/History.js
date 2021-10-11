@@ -77,4 +77,21 @@ class History extends Component {
 }
 
 
-export default History;
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addUser: (user) => dispatch(addUser(user)),
+        addProduct: (product) => dispatch(addProduct(product)),
+        editUser: (user) => dispatch(editUser(user)),
+        deleteProduct:(product) => dispatch(deleteProduct(product))
+    };
+};
+
+const mapStateToProps = (state) => {
+    return {
+        userList: state.userReducer.userList,
+        productsList: state.productReducer.productsList,
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(History);

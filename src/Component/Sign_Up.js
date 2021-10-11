@@ -11,6 +11,7 @@ import './Style.css';
 import { connect } from 'react-redux';
 import { addUser , editUser} from '../actions/userAction';
 import { addProduct , deleteProduct} from '../actions/productAction';
+import PasswordStrengthBar from 'react-password-strength-bar';
 
 const options = [
     {
@@ -51,6 +52,7 @@ class Sign_Up extends Component {
             department:'',
             todayS: new Date(),
             modalfill: false,
+            
 
         };
     }
@@ -69,9 +71,18 @@ class Sign_Up extends Component {
         loadCaptchaEnginge(6);
     };
     
-    onAdd = () => {
+    onAdd = (xScore) => {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        
+        if(xScore==1){
+            alert("1");
+        }
+        if(xScore==2){
+            alert("2");
+        }if(xScore==3){
+            alert("3");
+        }if(xScore==4){
+            alert("4");
+        }
         if ((this.state.firstname !== '') && (this.state.lastname !== '') && (this.state.username !== '') && (this.state.email !== '') && (this.state.passwd !== '') && (this.state.department !== '') ) {
             
             if(re.test(this.state.email)===false){
@@ -85,6 +96,7 @@ class Sign_Up extends Component {
             this.handleModalfillOpen()
         }
         console.log(this.state.todayS)
+        console.log("last value ",xScore)
     }
 
     getSuccess = (querySnapshot) => {
@@ -122,10 +134,17 @@ class Sign_Up extends Component {
     }
 
     render() {
+        const { passwd } = this.state;
+        let xScore=0;
+        const styles = {
+            wrap: {
+              width: 300,
+            }};
         return (
+            
             <div style={{direction:'row',width:"100%",height:"100vh",backgroundColor:"#29292B"}}>
                 <div style={{textAlign:'center',justifyContent:"center",alignItems:"center"}}>
-                    <div style={{height:"5vh"}}></div>
+                    <div style={{height:"1vh"}}></div>
                     <h2 style={{color:"#FFB636",fontSize:"40px", fontWeight:"600"}}>Sign up</h2>
                     <div style={{height:"0.5vh"}}></div>
                     <a1 style={{color:"#FFB636",fontSize:"16px"}}>Please fill this form to create an account!</a1>
@@ -167,12 +186,25 @@ class Sign_Up extends Component {
                         </div>
                     </div>
                     <div style={{ textAlign: 'left', marginLeft: '35%' }}>
-                        <input style={{ marginTop: '10px', width: 460, height: 30, color: "black" }} type="text" name="password"
+                        <input style={{ marginTop: '10px', width: 460, height: 30, color: "black" }} type="text" value ={passwd} name="password"
                             onChange={txt => this.setState({ passwd: txt.target.value })} />
+                            <PasswordStrengthBar style={{width:459}}
+                                    password={passwd}
+                                    minLength={5}
+                                    onChangeScore={(score, feedback) => {
+                                    console.log(score, feedback)
+                                    
+                                    xScore=score
+                                    console.log("from score(Default)",score)
+                                    console.log("from xScore",xScore);
+                                
+                                    
+                                    }}
+                                />
                     </div>
                 </div>
                 <div style={{ alignItems: "center" }}>
-                    <div style={{ marginLeft: '35%', paddingTop: '0.5%' }}>
+                    <div style={{ marginLeft: '35%', paddingTop: '0.1%' }}>
                         <div>
                             <a1 style={{ color: "#FFB636", fontSize: "16px" }} type="text">Confirm Password</a1>
                         </div>
@@ -211,7 +243,7 @@ class Sign_Up extends Component {
                 </div>
                 <div style={{ marginLeft: '43.5%', paddingTop: '1%' }}>
                     <button style={{ width: 200, height: 50, borderRadius: '40px', fontSize: '22px', fontWeight: 'bold', color: '#000000', cursor: 'pointer', backgroundColor: '#FFB636' }}
-                        onClick={this.onAdd}>
+                        onClick={()=>this.onAdd(xScore)}>
                         Sign up
                     </button>
                 </div>
@@ -239,7 +271,7 @@ class Sign_Up extends Component {
                         </div>
                     </div>
                 </div>
-
+                                            
             </div>
         )
     }
