@@ -147,6 +147,7 @@ class ForgotPass extends Component {
   ///////////////////////////////////////////////////////
   handleModalChangesucClose = (e) => {
     this.setState({ modalChangsuc: false });
+    window.location.href="/"
   };
 
 

@@ -119,6 +119,7 @@ class Login extends Component {
             alert("Confirm Password Not Match")
         }
         this.setState({ modalChangePass: false });
+       
 
     }
     
@@ -198,6 +199,7 @@ class Login extends Component {
     }
     upSuccess = () => {
         alert('Update password success')
+        
     }
     
     upReject = (error) => {
@@ -219,7 +221,7 @@ class Login extends Component {
             this.setState({count:this.state.count + 1});
             console.log(this.state.count);
 
-            if(this.state.count > 4){
+            if(this.state.count > 10){
                 alert("มึงเข้าเยอะไปปะ");
             }else{
                 
