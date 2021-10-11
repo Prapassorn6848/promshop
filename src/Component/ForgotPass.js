@@ -249,7 +249,7 @@ class ForgotPass extends Component {
                     <div></div>
                     <a1 class= 'text1'>We'll send you an email with your username and a link to reset your password.</a1>
                     <div style={{width:'100%',height:'1vh' ,backgroundColor:'#29292B'}}></div>                    
-                    <div style={{ justifyContent: 'center', alignItems: 'center', paddingTop: 80 }}>
+                    <div style={{ justifyContent: 'center', alignItems: 'center', paddingTop: '20' }}>
                       <input class='input' type="text"
                         id="email"
                         name="email"
