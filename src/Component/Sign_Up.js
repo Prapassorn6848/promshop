@@ -33,6 +33,12 @@ class Sign_Up extends Component {
         };
     }
 
+    _onChange(value) {
+        //console.log(value) - just to see what we recive from <Select />
+        this.setState({position: value});
+      }
+    
+
     render() {
         return (
             <div style={{direction:'row',width:"100%",height:"100vh",backgroundColor:"#29292B"}}>
@@ -117,7 +123,9 @@ class Sign_Up extends Component {
                             <div className="select-container">
                                 <select >
                                     {options.map((option) => (
-                                    <option value={option.value}>{option.label}</option>
+                                    <option value={option.value}
+                                    onChange={this._onChange.bind(this)}
+                                    >{option.label}</option>
                                     ))}
                                 </select>
                             </div>
@@ -125,7 +133,8 @@ class Sign_Up extends Component {
                     </div>
                 </div>
                 <div style={{marginLeft:'45%',paddingTop:'1%'}}>
-                    <button style={{ width: 200,height:50,borderRadius:'40px',fontSize:'20px',fontWeight:'bold',fontFamily:"initial",color:'#000000',cursor: 'pointer',backgroundColor:'#FFB636'}}>
+                    <button style={{ width: 200,height:50,borderRadius:'40px',fontSize:'20px',fontWeight:'bold',fontFamily:"initial",color:'#000000',cursor: 'pointer',backgroundColor:'#FFB636'}}
+                    onClick={() => console.log(this.state.position)}>
                         Sign up
                     </button>
                 </div>
