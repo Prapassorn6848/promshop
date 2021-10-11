@@ -3,7 +3,8 @@ import './SignStyle.css'
 import history from '../history'
 import firestore from '../firebase/firestore'
 import { Base64 } from 'js-base64';
-import { Warning } from '../pic';
+import { render } from 'react-dom';
+import {Warning } from '../pic';
 import styled, { css } from 'styled-components'
 import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 
@@ -38,6 +39,10 @@ const ButtonTry = styled.button`
 
 class Sign_Up extends Component {
     constructor(props) {
+        
+        var today = new Date(),
+        date = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate();
+
         super(props);
         this.state = {
             firstname: '',
@@ -47,6 +52,8 @@ class Sign_Up extends Component {
             passwd: '',
             department: '',
             canAdd: true,
+            /*today: new Date()*/
+            currentDate: date,
             modalfill: false,
 
         };
@@ -87,6 +94,7 @@ class Sign_Up extends Component {
                     email: this.state.email,
                     department: this.state.department,
                     passwd: Base64.encode(this.state.passwd),
+                    currentDate : this.state.currentDate,
                 }
                 firestore.addUser(user, this.addSuccess, this.addReject)
             }
@@ -126,21 +134,17 @@ class Sign_Up extends Component {
         console.log(error)
     }
 
-
-
-
-
     render() {
         return (
-            <div style={{ direction: 'row', width: "100%", height: "100vh", backgroundColor: "#29292B" }}>
-                <div style={{ textAlign: 'center', justifyContent: "center", alignItems: "center" }}>
-                    <div style={{ height: "5vh" }}></div>
-                    <h2 style={{ color: "#FFB636", fontSize: "40px", fontWeight: "500" }}>Sign up</h2>
-                    <div style={{ height: "0.5vh" }}></div>
-                    <a1 style={{ color: "#FFB636", fontSize: "16px" }}>Please fill this form to create an account!</a1>
+            <div style={{direction:'row',width:"100%",height:"100vh",backgroundColor:"#29292B"}}>
+                <div style={{textAlign:'center',justifyContent:"center",alignItems:"center"}}>
+                    <div style={{height:"5vh"}}></div>
+                    <h2 style={{color:"#FFB636",fontSize:"40px", fontWeight:"600"}}>Sign up</h2>
+                    <div style={{height:"0.5vh"}}></div>
+                    <a1 style={{color:"#FFB636",fontSize:"16px"}}>Please fill this form to create an account!</a1>
                 </div>
-                <div style={{ alignItems: "center", padding: '15px' }}>
-                    <div style={{ marginLeft: '35%' }}>
+                <div style={{alignItems:"center",paddingTop:'10px'}}>
+                    <div style={{marginLeft:'35%'}}>
                         <div>
                             <a1 style={{ color: "#FFB636", fontSize: "16px" }} type="text">First Name</a1>
                             <a1 style={{ color: "#FFB636", fontSize: "16px", marginLeft: '18%' }} type="text">Last Name</a1>

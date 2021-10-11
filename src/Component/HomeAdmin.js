@@ -49,7 +49,7 @@ class HomeAdmin extends Component {
     render() {
         
         return (
-            <div><h1 class="topja">PromSHOP</h1>
+            <div><h1 class="topja">PROMSHOP</h1>
             <div class="testerja">
                  <h1 style={{fontSize:'30px'}}>Mariarty</h1>
                  <div style={{marginLeft:'10%',marginTop:'3%'}}>
