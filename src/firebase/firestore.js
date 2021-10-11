@@ -79,11 +79,35 @@ class Firestore {
     deleteProduct = (id, success, reject) => {
         firebase
             .firestore()
-            .collection('Products')
+            .collection('product')
             .doc(id)
             .delete()
             .then(function () {
                 success(null);
+            })
+            .catch(function (error) {
+                reject(error);
+            });
+    };
+    getAllHistory(success, reject) {
+        firebase
+            .firestore()
+            .collection('history')
+            .get()
+            .then(function (querySnapshot) {
+                success(querySnapshot);
+            })
+            .catch(function (error) {
+                reject(error);
+            });
+    }
+    addHistory = (history, success, reject) => {
+        firebase
+            .firestore()
+            .collection('history')
+            .add(history)
+            .then(function (docRef) {
+                success(docRef);
             })
             .catch(function (error) {
                 reject(error);

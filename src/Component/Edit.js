@@ -9,27 +9,34 @@ import { connect } from 'react-redux';
 import { addUser, editUser } from '../actions/userAction';
 import { addProduct, deleteProduct } from '../actions/productAction';
 import firestore from "../firebase/firestore"
+import moment from 'moment'
 /* 
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {}
   })
 ); */
-const handleClick = (event, cellValues) => {
-    console.log(cellValues.row);
-
-};
+ 
 /* const handleCellClick = (param, event) => {
     event.stopPropagation();
 };
 const handleRowClick = (param, event) => {
     event.stopPropagation();
 }; */
+
+var productID = "";
+
+const handleClick = (event, cellValues) => {
+    console.log(cellValues.row.id);
+    productID = cellValues.row.id;
+
+};
+
 const columns = [
     { field: 'productID', headerName: 'ID', width: 200 },
-    { field: 'name', headerName: 'Name', width: 250},
-    { field: 'price', headerName: 'Price',type: 'number', width: 250},
-    { field: 'QTY',headerName: 'QTY',type: 'number',width: 250},
+    { field: 'name', headerName: 'Name', width: 250 },
+    { field: 'price', headerName: 'Price', type: 'number', width: 250 },
+    { field: 'QTY', headerName: 'QTY', type: 'number', width: 250 },
     {
         field: "Delete", width: 250, renderCell: (cellValues) => {
             return (
@@ -39,11 +46,14 @@ const columns = [
     },
 ];
 
+
+
 class Edit extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            productList:[],
+            productList: [],
+            deleteList:[],
         };
     }
 
@@ -51,6 +61,44 @@ class Edit extends Component {
         firestore.getAllProduct(this.getAllProductSuccess, this.getAllReject)
 
     }
+    //////////////////////////////////////////////
+
+    onDelete =()=>{
+        
+        firestore.deleteProduct(productID, this.deleteSuccess, this.deleteReject)
+        
+    }
+    addSuccess = (doc) => {
+        console.log(doc.id)
+    }
+
+    addReject = (error) => {
+        console.log(error)
+    }
+    
+    deleteSuccess = () => {
+        let date = new moment().utcOffset('+07:00').format('DD/MM/YYYY')
+        let times = new moment().utcOffset('+07:00').format('HH:mm')
+        console.log(times)
+        console.log(date)
+        const history = {
+            firstName : this.props.userList[this.props.userList.length - 1].firstname,
+            lastName : this.props.userList[this.props.userList.length - 1].lastname,
+            department : this.props.userList[this.props.userList.length - 1].department,
+            event : "Delete",
+            time : times,
+            date : date
+        }
+        firestore.addHistory(history, this.addSuccess, this.addReject)
+        console.log('Delete Success')
+        window.location.href="/edit"
+    }
+    
+    deleteReject = (error) => {    
+        console.log(error)
+    }
+
+    //////////////////////////////////////////////
 
     getAllProductSuccess = (querySnapshot) => {
         querySnapshot.forEach(doc => {
@@ -68,6 +116,11 @@ class Edit extends Component {
     getAllReject = (error) => {
         console.log(error)
     }
+
+    
+
+    
+
     render() {
         return (
             <div id="container">
@@ -76,13 +129,7 @@ class Edit extends Component {
                     <div class='view' >
                         <h1 style={{ color: '#FFB636' }}> PROMSHOP</h1>
                         <h5 style={{ color: '#FFB636' }}> Editor</h5>
-                        <h1 class="tester">Mariarty
-                            <div style={{ marginLeft: '85%', marginTop: '-14%' }}>
-                                <FiLogOut size={40} onClick={() => window.location.href = "/"} style={{ cursor: 'pointer' }} />
-                            </div>
-
-                        </h1>
-                        <h4 class="tester2"> Admin</h4>
+                        
                     </div>
                     <div style={{ width: '100%', height: '50vh' }}>
                         <DataGrid className='cssStyle'
@@ -92,10 +139,12 @@ class Edit extends Component {
                             rowsPerPageOptions={[1]}
 
                         />
-                        
+
                     </div>
                     <div class='view' ></div>
-                    <div style={{ width: '100%', height: '5vh', backgroundColor: '#FFB636' }} ></div>
+                    <div style={{ width: '100%', height: '5vh', backgroundColor: '#FFB636' }} >
+                        <Button style={{backgroundColor:'white'}} onClick={this.onDelete}>Confirm</Button>
+                    </div>
 
                 </div>
             </div>
