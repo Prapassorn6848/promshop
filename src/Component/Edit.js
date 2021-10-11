@@ -28,8 +28,8 @@ const handleRowClick = (param, event) => {
 const columns = [
     { field: 'productID', headerName: 'ID', width: 200 },
     { field: 'name', headerName: 'Name', width: 250},
-    { field: 'price', headerName: 'Price',type: 'number', width: 205 },
-    { field: 'QTY',headerName: 'QTY',type: 'number',width: 205},
+    { field: 'price', headerName: 'Price',type: 'number', width: 250},
+    { field: 'QTY',headerName: 'QTY',type: 'number',width: 250},
     {
         field: "Delete", width: 250, renderCell: (cellValues) => {
             return (
