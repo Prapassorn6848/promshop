@@ -144,7 +144,7 @@ class Sign_Up extends Component {
             
             <div style={{direction:'row',width:"100%",height:"100vh",backgroundColor:"#29292B"}}>
                 <div style={{textAlign:'center',justifyContent:"center",alignItems:"center"}}>
-                    <div style={{height:"5vh"}}></div>
+                    <div style={{height:"1vh"}}></div>
                     <h2 style={{color:"#FFB636",fontSize:"40px", fontWeight:"600"}}>Sign up</h2>
                     <div style={{height:"0.5vh"}}></div>
                     <a1 style={{color:"#FFB636",fontSize:"16px"}}>Please fill this form to create an account!</a1>
@@ -204,7 +204,7 @@ class Sign_Up extends Component {
                     </div>
                 </div>
                 <div style={{ alignItems: "center" }}>
-                    <div style={{ marginLeft: '35%', paddingTop: '0.5%' }}>
+                    <div style={{ marginLeft: '35%', paddingTop: '0.1%' }}>
                         <div>
                             <a1 style={{ color: "#FFB636", fontSize: "16px" }} type="text">Confirm Password</a1>
                         </div>

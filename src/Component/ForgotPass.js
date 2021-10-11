@@ -150,6 +150,12 @@ class ForgotPass extends Component {
   };
 
 
+   onResend = (e) =>{
+    this.onSend(e)
+    this.handleModal3Close()
+    this.handleModal4Close()
+  }
+
   handleModalChangesucOpen = () => {
     this.setState({ modalChangsuc: true });
   };
