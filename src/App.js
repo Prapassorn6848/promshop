@@ -32,8 +32,8 @@ class App extends Component {
             <Route exact path="/" component={Login} />
             <Route exact path="/history" component={History} />
             <Route exact path="/edit" component={Edit} />
-            <Route exact path="/homeAdmin" component={HomeUser} />
-            <Route exact path="/home" component={HomeAdmin} />
+            <Route exact path="/homeAdmin" component={HomeAdmin} />
+            <Route exact path="/homeUser" component={HomeUser} />
 
           </Switch>
         </Router>
