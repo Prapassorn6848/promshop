@@ -1,7 +1,7 @@
 import { ADD_PRODUCT,DELETE_PRODUCT } from "../actions/types";
 
 const initialState = {
-    products:[]
+    productsList:[],
 };
 
 const productReducer = (state = initialState,action) => {
@@ -9,14 +9,15 @@ const productReducer = (state = initialState,action) => {
         case ADD_PRODUCT : 
             return{
                 ...state,
-                products:state.products.concat(action.product)
+                productsList:state.productsList.concat(action.product)
             }
         case DELETE_PRODUCT :
             return{
                 ...state,
-                products:state.products.filter((item)=>item.id != action.id)
+                productsList:state.productsList.filter((item)=>item.id != action.id)
             }
-        default : return state
+        default :
+            return state
     }
 }
 export default productReducer;
