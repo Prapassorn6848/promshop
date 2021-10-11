@@ -91,7 +91,7 @@ class Login extends Component {
         /*console.log(user.pass)
         console.log(this.state.user.pass)*/
         if (Base64.decode(user.pass) === this.state.pass) {
-            history.push("/home")
+            window.location.href="/home"
             /*window.location.href="/home"*/
         } else {
             alert("Email or Password is incorrect")

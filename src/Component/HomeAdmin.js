@@ -53,20 +53,20 @@ class HomeAdmin extends Component {
             <div class="testerja">
                  <h1 style={{fontSize:'30px'}}>Mariarty</h1>
                  <div style={{marginLeft:'10%',marginTop:'3%'}}>
-                     <FiLogOut size={35} onClick={()=>history.push({pathname: '/history',})}/>           
+                     <FiLogOut size={35} onClick={()=>window.location.href="/"}/>           
                 </div>
             </div>    
                 <h4 style={{fontSize:'16px',marginLeft:'93%',color:'white',marginTop:'-1.5%' }}>Admin</h4>
                 <div class="text-box">
-                <a href="#"  class="btn btn btn-white btn-animate " onClick={() => history.push({pathname: '/view',})}>Stock</a>
+                <a href="#"  class="btn btn btn-white btn-animate " onClick={() => window.location.href="/view"}>Stock</a>
                 </div>
 
                 <div class="text-box1">
-                <a href="/Edit" class="btn btn-white btn-animate " onClick={() => history.push({pathname: '/edit',})}>Edit</a>
+                <a href="/Edit" class="btn btn-white btn-animate " onClick={() => window.location.href="/edit"}>Edit</a>
                 </div>
 
                 <div class="text-box2">
-                <a href="/History" class="btn btn-white btn-animate " onClick={() => history.push({pathname: '/history',})}>History</a>
+                <a href="/History" class="btn btn-white btn-animate " onClick={() => window.location.href="/history"}>History</a>
                 </div>
 
                 <div hidden={!this.state.modalChangePass}>
