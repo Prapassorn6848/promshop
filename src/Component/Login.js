@@ -369,7 +369,9 @@ class Login extends Component {
                             <div style={{ height: "5vh" }}></div>
                         </div>
                         <div style={{ alignItems: "center" }}>
-                           
+                            <div style={{ marginLeft: '17%' }}>
+                                <a1 style={{ color: "#FFB636", fontSize: "20px" }} type="text"> <FaUser />  Username or E-mail</a1>
+                            </div>
 
                             <div style={{ textAlign: 'center' }}>
                                 <input style={{ marginTop: '10px', width: 500, height: 40, color: "black" }} type="text" name="email"
