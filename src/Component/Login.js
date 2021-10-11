@@ -165,9 +165,7 @@ class Login extends Component {
     ///////////////////////////////////////////////
 
     //Captcha
-    /*componentDidMount() {
-        loadCaptchaEnginge(6);
-    };*/
+    
     //Capt2
     /*componentDidMount() {
         setTimeout(() => {
