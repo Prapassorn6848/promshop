@@ -4,7 +4,9 @@ import firestore from "../firebase/firestore"
 import { ButtonGroup } from 'react-bootstrap';
 import styled, { css } from 'styled-components'
 
-import {FiLogOut} from "react-icons/fi";
+import {FiLogOut, FiEdit, FiShoppingBag} from "react-icons/fi";
+import {RiHistoryLine} from "react-icons/ri";
+
 import {
     BrowserRouter as Router,
     Switch,
@@ -49,24 +51,24 @@ class HomeAdmin extends Component {
     render() {
         
         return (
-            <div><h1 class="topja">PromSHOP</h1>
+            <div><h1 class="topja" style = {{fontWeight: "500"}}>PROMSHOP</h1>
             <div class="testerja">
-                 <h1 style={{fontSize:'30px'}}>Mariarty</h1>
+                 <h1 style={{fontSize:'30px', fontWeight: "500",color: "black"}}>Mariarty</h1>
                  <div style={{marginLeft:'10%',marginTop:'3%'}}>
-                     <FiLogOut size={35} onClick={()=>history.push({pathname: '/history',})}/>           
+                     <FiLogOut size={35} onClick={()=>window.location.href="/"} style={{cursor:'pointer',color: "black"}}/>           
                 </div>
             </div>    
-                <h4 style={{fontSize:'16px',marginLeft:'93%',color:'white',marginTop:'-1.5%' }}>Admin</h4>
+                <h4 style={{fontSize:'16px',marginLeft:'93%',color:'white',marginTop:'-1.5%',color: "black",fontWeight: "500"}}>Admin</h4>
                 <div class="text-box">
-                <a href="#"  class="btn btn btn-white btn-animate " onClick={() => history.push({pathname: '/view',})}>Stock</a>
+                <a href="#"  class="btn btn btn-white btn-animate " onClick={() => window.location.href="/view"}><FiShoppingBag size={30}/> Stock</a>
                 </div>
 
-                <div class="text-box1">
-                <a href="/Edit" class="btn btn-white btn-animate " onClick={() => history.push({pathname: '/edit',})}>Edit</a>
+                <div class="text-box1" >
+                <a href="/Edit" class="btn btn-white btn-animate " onClick={() => window.location.href="/edit"}><FiEdit size={30}/> Edit</a>
                 </div>
 
                 <div class="text-box2">
-                <a href="/History" class="btn btn-white btn-animate " onClick={() => history.push({pathname: '/history',})}>History</a>
+                <a href="/History" class="btn btn-white btn-animate " onClick={() => window.location.href="/history"}><RiHistoryLine size={30}/> History</a>
                 </div>
 
                 <div hidden={!this.state.modalChangePass}>
