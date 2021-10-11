@@ -179,7 +179,7 @@ class Sign_Up extends Component {
                 </div>
                 <div style={{marginLeft:'48%',paddingTop:'1%'}}>
                     <button style={{ width: 100,height:40,borderRadius:'10px',fontSize:'16px',fontFamily:"initial",color:'#ffffff',cursor: 'pointer',backgroundColor:'#29292B'}}
-                    onClick={() => history.push({pathname: '/',})}>
+                    onClick={() =>  {window.location.href="/"}}>
                         Back
                     </button>
                 </div>
