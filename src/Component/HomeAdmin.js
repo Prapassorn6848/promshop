@@ -53,7 +53,7 @@ class HomeAdmin extends Component {
             <div class="testerja">
                  <h1 style={{fontSize:'30px'}}>Mariarty</h1>
                  <div style={{marginLeft:'10%',marginTop:'3%'}}>
-                     <FiLogOut size={35} onClick={()=>window.location.href="/"}/>           
+                     <FiLogOut size={35} onClick={()=>window.location.href="/"} style={{cursor:'pointer'}}/>           
                 </div>
             </div>    
                 <h4 style={{fontSize:'16px',marginLeft:'93%',color:'white',marginTop:'-1.5%' }}>Admin</h4>

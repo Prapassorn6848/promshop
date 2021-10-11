@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components'
 import Button from 'react-bootstrap/Button';
 import { FaUser, FaLock } from "react-icons/fa";
 import './Style.css';
-import { Success, Sendmail } from '../pic';
+import { Success, Sendmail, Warning } from '../pic';
 import { Send } from '@material-ui/icons';
 import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 import ReCAPTCHA from "react-google-recaptcha";
@@ -57,6 +57,7 @@ class Login extends Component {
             modalPasswrong: false,
             modalSendsuccess: false,
             modalRegistersuccess: false,
+            modalfill: false,
             callback: "not fired",
             value: "[empty]",
             load: false,
@@ -72,7 +73,8 @@ class Login extends Component {
 
         if (this.state.email === null || this.state.email === "" || this.state.pass === null || this.state.pass === "" ) {
           console.log("Empty input!!")
-          alert("กรอกให้ครบอิสัส")
+        //   alert("กรอกให้ครบอิสัส")
+            this.handleModalfillOpen()
         }
         else {
             firestore.getUser(this.state.email, this.getSuccess, this.getReject)
@@ -94,7 +96,8 @@ class Login extends Component {
             
             window.location.href="/homeAdmin"
         } else {
-            alert("Email or Password is incorrect")
+            this.handleModalPasswrongOpen();
+            // alert("Email or Password is incorrect")
         }
         /*console.log(this.state.account)*/
     }
@@ -140,6 +143,16 @@ class Login extends Component {
         this.setState({ modalRegistersuccess: true });
     };
     ///////////////////////////////////////////////
+    handleModalfillClose = (e) => {
+        this.setState({ modalfill: false });
+    };
+
+
+    handleModalfillOpen = () => {
+        this.setState({ modalfill: true });
+    };
+    ///////////////////////////////////////////////
+
     //Captcha
     /*componentDidMount() {
         loadCaptchaEnginge(6);
@@ -186,7 +199,7 @@ class Login extends Component {
             <div style={{ direction: 'row', width: "100%", height: "100vh", backgroundColor: "#29292B" }}>
                 <div style={{ marginLeft: "50%", direction: 'column', height: "100vh" }}>
                     <div style={{ textAlign: 'center', justifyContent: "center", alignItems: "center" }}>
-                        <div style={{ height: "10vh" }}></div>
+                        <div style={{ height: "8vh" }}></div>
                         <a1 style={{ color: "#FFB636", fontSize: "50px" }}>PROMSHOP</a1>
                         <div style={{ height: "1.5vh" }}></div>
                         <a1 style={{ color: "#FFB636", fontSize: "20px" }}>Enter your username or email address and password</a1>
@@ -221,21 +234,17 @@ class Login extends Component {
                         <ReCAPTCHA sitekey="6Le9Zb8cAAAAAP1uib6Occmbc5Kc7xX1PFgzklYX" onChange={this.onChange} />
                     </div>
                     <div style={{ textAlign: 'center', paddingTop: "20px" }}>
-                        <ButtonLogin style={{ fontSize: '28px', fontWeight: 'bold', color: '#29292B', paddingTop: "2px" }}
+                        <ButtonLogin style={{ fontSize: '28px', fontWeight: '600', color: '#29292B', paddingTop: "2px" }}
                             onClick={this.onLogin}>
                             Login
                         </ButtonLogin>
                     </div>
                     <div style={{ textAlign: 'center', paddingTop: "35px" }}>
-                        <ButtonCreateAc style={{ fontSize: '24px', fontWeight: 'bold', color: "#29292B", paddingTop: "5px" }}
+                        <ButtonCreateAc style={{ fontSize: '24px', fontWeight: '600', color: "#29292B", paddingTop: "5px" }}
                             onClick={() => {window.location.href="/signup"}}>
                             Create New Account
                         </ButtonCreateAc>
                     </div>
-
-
-
-
 
                 </div>
 
@@ -244,9 +253,9 @@ class Login extends Component {
                         <div className="modal-cardPasswrong">
                             <div style={{ textAlign: 'center', justifyContent: "center", alignItems: "center" }}>
                                 <div style={{ height: "2vh" }}></div>
-                                <a1 style={{ color: "#29292B", fontSize: "32px", fontWeight: "900" }}>Login Failed</a1>
-                                <div style={{ height: "1.8vh" }}></div>
-                                <a1 style={{ color: "#29292B", fontSize: "24px" }}>Username or password is incorrect.</a1>
+                                <a1 style={{ color: "#29292B", fontSize: "32px", fontWeight: "600" }}>Login Failed</a1>
+                                <div style={{ height: "2.5vh" }}></div>
+                                <a1 style={{ color: "#29292B", fontSize: "24px" }}>Username or Password is incorrect.</a1>
                                 <div style={{ height: "0.1vh" }}></div>
                                 <a1 style={{ color: "#29292B", fontSize: "24px" }}>Please try again.</a1>
                                 <div style={{ height: "5vh" }}></div>
@@ -283,7 +292,7 @@ class Login extends Component {
                 </div>
 
                 <div hidden={!this.state.modalRegistersuccess}>
-                    <div className="modal-backgroundRegisSuccess" onClick={this.handleModalRegistersuccessClose}>
+                    <div className="modal-backgroundRegisSuccess">
                         <div className="modal-cardRegisSuccess">
                             <div style={{ textAlign: 'center', justifyContent: "center", alignItems: "center" }}>
                                 <div style={{ paddingTop: 30 }}>
@@ -296,6 +305,24 @@ class Login extends Component {
                             {/* <div style={{textAlign:'center', paddingTop: "5"}}>
                                 <ButtonTry style={{ fontSize: 20 }} onClick={this.handleModalRegistersuccessClose}>OK</ButtonTry>
                             </div> */}
+                        </div>
+                    </div>
+                </div>
+
+                <div hidden={!this.state.modalfill}>
+                    <div className="modal-backgroundfill" >
+                        <div className="modal-cardfill">
+                            <div style={{ textAlign: 'center', justifyContent: "center", alignItems: "center" }}>
+                                <div style={{ paddingTop: 10 }}>
+                                    <img className="picWarning" src={Warning} />
+                                </div>
+                                
+                                <a1 style={{ color: "#29292B", fontSize: "24px",fontWeight: "600" }}>Please complete the information.</a1>
+                                <div style={{ height: "1vh" }}></div>
+                            </div>
+                            <div style={{textAlign:'center', paddingTop: "10px"}}>
+                                <ButtonTry style={{ fontSize: 20}} onClick={this.handleModalfillClose}>OK</ButtonTry>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -117,3 +117,23 @@
     background-color: #FFB636;
     border-radius: 15px;
   }
+
+  .modal-backgroundfill {
+    position: absolute;
+    right: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.1)!important;
+    ;
+  }
+
+.modal-cardfill {
+    margin: 0 auto;
+    display: block;
+    margin-top: 210px;
+    width: 550px;
+    height: 270px;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+  }
