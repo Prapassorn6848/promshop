@@ -173,10 +173,10 @@ h5{
   font-size: 24px;
 }
 .tester{
-  background-color: #FFB636;
-  color: white;
+ 
+  color: #FFB636;
   margin-left:80vw;
-  font-size: 20px;
+  font-size: 30px;
   text-align: center;
   width: 160px ;
   height: 30px;
@@ -185,12 +185,13 @@ h5{
   margin-left: 80vw;
 }
 .button2 {
-
-  border: none;
+  
+  color: #FFB636;
+  
   padding: 15px; 
   text-align: center;
   text-decoration: none;
-  display: inline-block;
+  
   font-size: 16px;
   width: 1%;
   margin-top: -62vh;
@@ -203,5 +204,14 @@ img {
   border-radius: 60px;
   margin-top: -0.5vh;
   margin-left: -0.5vw;
+  color: #FFB636;
   }
 
+  .tester2{
+ 
+    color: #FFB636;
+    margin-left:80vw;
+    font-size: 20px;
+    text-align: center;
+    margin-left: 82vw;
+  }

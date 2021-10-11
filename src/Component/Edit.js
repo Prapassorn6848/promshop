@@ -4,24 +4,23 @@ import './EditStyle.css';
 import { DataGrid } from '@mui/x-data-grid';
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import { Button, Link } from "@material-ui/core";
-
-
-
-
+import {FiLogOut} from "react-icons/fi";
+/* 
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {}
   })
-);
+); */
 const handleClick = (event, cellValues) => {
     console.log(cellValues.row);
+    
   };
-const handleCellClick = (param, event) => {
+/* const handleCellClick = (param, event) => {
     event.stopPropagation();
 };
 const handleRowClick = (param, event) => {
     event.stopPropagation();
-};
+}; */
 const columns = [
     {field: "name",headerName: "Name",width: 250},
     { field: "price",headerName: "Price", width: 250 },
@@ -58,11 +57,13 @@ class Edit extends Component {
                 <div class='view' >
                     <h1 style={{color:'#FFB636'}}> PROMSHOP</h1>
                     <h5 style={{color:'#FFB636'}}> Editor</h5> 
-                    <h4 class="tester">Mariarty
-                      <a class="button2" href="#">
-                      <img src="https://sv1.picz.in.th/images/2021/10/10/u4F2xu.png" alt="logout.png" /></a>
+                    <h1 class="tester">Mariarty
+                    <div style={{marginLeft:'85%',marginTop:'-14%'}}>
+                     <FiLogOut size={40} onClick={()=>window.location.href="/"} style={{cursor:'pointer'}}/>           
+                </div>
 
-                </h4>
+                </h1>
+                <h4  class="tester2"> Admin</h4> 
                 </div>
                 <div  style={{ width: '100%' ,height:'50vh'}}>
                 <DataGrid className='cssStyle'
