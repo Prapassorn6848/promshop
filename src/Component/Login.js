@@ -13,6 +13,8 @@ import ReCAPTCHA from "react-google-recaptcha";
 import firestore from '../firebase/firestore'
 import { Alert } from 'bootstrap';
 import { Base64 } from 'js-base64';
+import emailjs from 'emailjs-com';
+
 
 
 const TEST_SITE_KEY = "6Le9Zb8cAAAAAP1uib6Occmbc5Kc7xX1PFgzklYX";
@@ -49,7 +51,10 @@ const ButtonCreateAc = styled.button`
   border-radius: 30px;
   margin: 1 1em;
   padding: 0.5em 1.75em;
+
 `
+
+
 
 class Login extends Component {
     constructor(props) {
@@ -71,10 +76,49 @@ class Login extends Component {
             isVerified: false,
             canLogin:false,
             modalEditpw:false,
+            countLogin: 0,
+            modalLockUser:false,
         };
         this._reCaptchaRef = React.createRef();
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    handleSubmit = () => {
+        console.log("sub")
+        emailjs
+          .sendForm(
+            "service_o6xyl18",
+            "template_q34buoh",
+            ".forget_Pass",
+            "user_fB00kPeUl1v618UKVJoEZ",
+          )
+          .then(function () {
+            console.log('Send')
+          })
+          .catch(function (error) {
+            console.log(error)
+          });
+      }
+
+    success = (querySnapshot) => {
+        let user;
+        querySnapshot.forEach(doc => {
+          user = doc.data()
+          user.id = doc.id
+          console.log("sussss")
+          this.setState({
+            user: user
+          })
+        });
+        if (user.email != this.state.email) {
+          console.log("error")
+        } else {
+            console.log(user);
+            this.handleSubmit();
+        }
+      }
+
+    
 
     onLogin = () => {
         if (this.state.email === null || this.state.email === "" || this.state.pass === null || this.state.pass === "") {
@@ -86,6 +130,18 @@ class Login extends Component {
             firestore.getUser(this.state.email, this.getSuccess, this.getReject)
         }
     }
+
+    reject = (error) => {
+        console.log(error)
+      }
+      
+    LockUser = (e) => {
+        console.log("feen")
+        e.preventDefault()
+        firestore.getUser(this.state.email, this.success, this.reject)
+    }
+
+   
 
 
 
@@ -116,8 +172,20 @@ class Login extends Component {
 
             /*window.location.href="/home"*/
         } else {
-            this.handleModalPasswrongOpen();
-            // alert("Email or Password is incorrect")
+            this.setState({countLogin:this.state.countLogin + 1})
+            if(this.state.countLogin > 3){
+                alert("เปลี่ยนรหัสดิ้")
+                if(this.state.countLogin === 5){
+                    alert("โปรดเปลี่ยนรหัสผ่าน")
+                    this.handleModalLockUserOpen();
+                }
+
+            }else{
+                this.handleModalPasswrongOpen();
+                console.log(this.state.countLogin)
+            }
+           
+            
         }
         /*console.log(this.state.account)*/
     }
@@ -125,10 +193,19 @@ class Login extends Component {
     getReject = (error) => {
         console.log(error)
         this.handleModalPasswrongOpen()
-        // alert("Email or Password is incorrect")
+        //alert("Email or Password is incorrect")
     }
 
 
+    //////////////////////////////////////////////
+    handleModalLockUserClose = (e) => {
+        this.setState({ modalLockUser: false });
+    };
+
+
+    handleModalLockUserOpen = () => {
+        this.setState({ modalLockUser: true });
+    };
     //////////////////////////////////////////////
     handleModalPasswrongClose = (e) => {
         this.setState({ modalPasswrong: false });
@@ -252,18 +329,48 @@ class Login extends Component {
                         <div style={{ marginLeft: '17%' }}>
                             <a1 style={{ color: "#FFB636", fontSize: "20px" }} type="text"> <FaUser />  Username or E-mail</a1>
                         </div>
+                        <div style={{ alignItems: "center" }}>
+                            <div style={{ marginLeft: '17%' }}>
+                                <a1 style={{ color: "#FFB636", fontSize: "20px" }} type="text"> <FaUser />  Username or E-mail</a1>
+                            </div>
 
-                        <div style={{ textAlign: 'center' }}>
-                            <input style={{ marginTop: '10px', width: 500, height: 40, color: "black" }} type="text" name="email"
-                                onChange={txt => this.setState({ email: txt.target.value })} />
-                        </div>
+                            <div style={{ textAlign: 'center' }}>
+                                <input style={{ marginTop: '10px', width: 500, height: 40, color: "black" }} type="text" name="email"
+                                    onChange={txt => this.setState({ email: txt.target.value })} />
+                            </div>
 
-                        <div style={{ marginLeft: '17%', marginTop: '2%' }}>
-                            <a1 style={{ color: "#FFB636", fontSize: "20px" }} type="text"><FaLock />   Password</a1>
+                            <div style={{ marginLeft: '17%', marginTop: '2%' }}>
+                                <a1 style={{ color: "#FFB636", fontSize: "20px" }} type="text"><FaLock />   Password</a1>
+                            </div>
+                            <div style={{ textAlign: 'center' }} >
+                                <input style={{ marginTop: '10px', width: 500, height: 40, color: "black" }} type="password" name="email"
+                                    onChange={txt => this.setState({ pass: txt.target.value })} />
+                            </div>
                         </div>
-                        <div style={{ textAlign: 'center' }} >
-                            <input style={{ marginTop: '10px', width: 500, height: 40, color: "black" }} type="password" name="email"
-                                onChange={txt => this.setState({ pass: txt.target.value })} />
+                    
+                        <div style={{ marginLeft: '60%' }}>
+                            <Button variant="link" onClick={() => {window.location.href="/forgotpass"}}>
+                                Forgotten password ?
+                            </Button>
+                        </div>
+                    
+                        <div style={{marginLeft:'31%'}}>
+                            <ReCAPTCHA sitekey="6Le9Zb8cAAAAAP1uib6Occmbc5Kc7xX1PFgzklYX" onChange={this.onChange} />
+                        </div>
+                        
+                        <div style={{ textAlign: 'center', paddingTop: "20px" }}>
+                            <ButtonLogin style={{ fontSize: '28px', fontWeight: 'bold', color: '#29292B', paddingTop: "2px" }}
+                                onClick={this.onLogin}>
+                                Login
+                            </ButtonLogin>
+                        </div>
+                        
+                        <div style={{ textAlign: 'center', paddingTop: "35px" }}>
+                            <ButtonCreateAc style={{ fontSize: '24px', fontWeight: 'bold', color: "#29292B", paddingTop: "5px" }}
+                                onClick={() => {window.location.href="/signup"}}>
+                                Create New Account
+                            </ButtonCreateAc>
+                        </div>
                         </div>
                     </div>
                     <div style={{ marginLeft: '60%' }}>
@@ -294,6 +401,7 @@ class Login extends Component {
 
                 </div>
 
+                
                 <div hidden={!this.state.modalPasswrong}>
                     <div className="modal-backgroundPasswrong">
                         <div className="modal-cardPasswrong">
@@ -312,6 +420,35 @@ class Login extends Component {
                         </div>
                     </div>
                 </div>
+                
+            
+                <div hidden={!this.state.modalLockUser}>
+                    <form className="forget_Pass">
+                    <div className="modal-backgroundPasswrong">
+                    <div style={{ justifyContent: 'center', alignItems: 'center', paddingTop: 80 }}>
+                            <input type="hidden"
+                            id="email"
+                            name="email"
+                            value={this.state.email}></input>
+                        </div>
+                        <div className="modal-cardPasswrong">
+                            <div style={{ textAlign: 'center', justifyContent: "center", alignItems: "center" }}>
+                                <div style={{ height: "2vh" }}></div>
+                                <a1 style={{ color: "#29292B", fontSize: "32px", fontWeight: "900" }}>Login Failed</a1>
+                                <div style={{ height: "1.8vh" }}></div>
+                                <a1 style={{ color: "#29292B", fontSize: "24px" }}>Lock User Now</a1>
+                                <div style={{ height: "0.1vh" }}></div>
+                                <a1 style={{ color: "#29292B", fontSize: "24px" }}>Please change password.</a1>
+                                <div style={{ height: "5vh" }}></div>
+                            </div>
+                            <div style={{ textAlign: 'center', paddingTop: "5" }}>
+                                <ButtonTry style={{ fontSize: 20 }} onClick={this.LockUser}>OK</ButtonTry>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            
 
 
 
@@ -354,6 +491,7 @@ class Login extends Component {
                         </div>
                     </div>
                 </div>
+                
 
                 <div hidden={!this.state.modalfill}>
                     <div className="modal-backgroundfill" >

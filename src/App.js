@@ -8,10 +8,10 @@ import ForgotPass from './Component/ForgotPass'
 import Sign_Up from './Component/Sign_Up'
 import HomeUser from './Component/HomeUser'
 import HomeAdmin from './Component/HomeAdmin'
-
-
 import Edit from './Component/Edit'
 
+import { Provider } from 'react-redux';
+import configureStore from './Store';
 
 class App extends Component {
   constructor(props) {
@@ -22,8 +22,7 @@ class App extends Component {
   render() {
 
     return (
-
-
+      <Provider store={configureStore}>
         <Router history={history}>
           <Switch>
             <Route exact path="/view" component={View} />
@@ -37,6 +36,8 @@ class App extends Component {
 
           </Switch>
         </Router>
+      </Provider>
+
 
 
     )
