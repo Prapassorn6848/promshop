@@ -11,11 +11,13 @@ img {
   }
 .testerja{
   display: flex;
-  width: 100px;
+  width: 300px;
   height: 8vh;
   background-color:#FFB636;
   color: white;
-  margin-left: 89vw;
+  justify-items: flex-end;
+  text-align:right;
+  align-items: flex-end;
   font-size: 20px;
   margin-top: -10vh;
 }

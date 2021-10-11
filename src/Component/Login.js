@@ -14,6 +14,9 @@ import firestore from '../firebase/firestore'
 import { Alert } from 'bootstrap';
 import { Base64 } from 'js-base64';
 
+import { connect } from 'react-redux';
+import { addUser , editUser} from '../actions/userAction';
+import { addProduct , deleteProduct} from '../actions/productAction';
 
 const TEST_SITE_KEY = "6Le9Zb8cAAAAAP1uib6Occmbc5Kc7xX1PFgzklYX";
 const DELAY = 1500;
@@ -72,11 +75,13 @@ class Login extends Component {
             canLogin:false,
             modalEditpw:false,
         };
+
         this._reCaptchaRef = React.createRef();
     }
 
 
     onLogin = () => {
+        console.log(this.props.userList);
         if (this.state.email === null || this.state.email === "" || this.state.pass === null || this.state.pass === "") {
             console.log("Empty input!!")
             this.handleModalfillOpen()
@@ -96,19 +101,20 @@ class Login extends Component {
             user.id = doc.id
             this.setState({ user: user })
         });
+        
         /*console.log(user.pass)
         console.log(this.state.user.pass)*/
         let timeData = new Date(user)
         if (Base64.decode(user.passwd) === this.state.pass) {
             if(this.state.isVerified){
                 if(true){
-                    window.location.href="/homeAdmin"
+                    this.props.addUser(user)
+                    console.log(this.props.userList);
+                    setTimeout(() => {window.location.href="/homeAdmin"}, 2000);
                 }
                 else{
                     this.state.modalEditpw=true
                 }
-
-                
             }
             else{
                 alert("Please verify if you are human!!");
@@ -379,5 +385,20 @@ class Login extends Component {
     }
 }
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addUser: (user) => dispatch(addUser(user)),
+        addProduct: (product) => dispatch(addProduct(product)),
+        editUser: (user) => dispatch(editUser(user)),
+        deleteProduct:(product) => dispatch(deleteProduct(product))
+    };
+};
 
-export default Login;
+const mapStateToProps = (state) => {
+    return {
+        userList: state.userReducer.userList,
+        products: state.productReducer.products,
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

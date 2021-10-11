@@ -6,6 +6,10 @@ import './Style.css';
 import { DataGrid } from '@mui/x-data-grid';
 
 import {FiLogOut} from "react-icons/fi";
+
+import { connect } from 'react-redux';
+import { addUser , editUser} from '../actions/userAction';
+import { addProduct , deleteProduct} from '../actions/productAction';
 //const db = firebase.firestore();
 console.log("fern");
 
@@ -82,5 +86,20 @@ class View extends Component {
 
 
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addUser: (user) => dispatch(addUser(user)),
+        addProduct: (product) => dispatch(addProduct(product)),
+        editUser: (user) => dispatch(editUser(user)),
+        deleteProduct:(product) => dispatch(deleteProduct(product))
+    };
+};
 
-export default View;
+const mapStateToProps = (state) => {
+    return {
+        userList: state.userReducer.userList,
+        products: state.productReducer.products,
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(View);
