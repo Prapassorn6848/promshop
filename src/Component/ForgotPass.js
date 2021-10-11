@@ -90,6 +90,7 @@ class ForgotPass extends Component {
             confirmNewPass:null,
             newPassMsg: "",
             user:null,
+            todayS: new Date(),
             
         };
         this.handleChange = this.handleChange.bind(this);
@@ -197,6 +198,38 @@ class ForgotPass extends Component {
         });
         console.log("incorrect")
       }
+    }
+    
+    upSuccess = () => {
+      
+      alert('Update password success')
+      this.setState({ modal4: !this.state.modal4 });
+    }
+    upReject = (e) => {
+      console.log(e)
+    }
+
+    onOK = () => {
+      if (this.state.newPass === this.state.confirmNewPass) {
+        console.log(this.state.newPass)
+        const user = {
+          id:this.state.user.id,
+          passwd: Base64.encode(this.state.newPass),
+          todayS: this.state.todayS,
+          email: this.state.user.email,
+        } 
+        firestore.updateUser(user, this.upSuccess, this.upReject)
+        this.setState({
+          email: "",
+          pass: "",
+        });
+      } else {
+        this.setState({
+          newPassMsg: "Password not match"
+        })
+        console.log("Password not match!!")
+      }
+  
     }
 
     render() {

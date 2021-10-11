@@ -7,7 +7,6 @@ import { render } from 'react-dom';
 import {Warning } from '../pic';
 import styled, { css } from 'styled-components'
 import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
-
 import './Style.css';
 
 
