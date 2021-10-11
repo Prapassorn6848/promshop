@@ -33,6 +33,7 @@ const ButtonResend = styled.button`
   && {
     color: #000000;
     font-size: 30px;
+    font-weight: 900;
   }
 `
 
@@ -125,13 +126,13 @@ class ForgotPass extends Component {
                   autoSelect={true}
                   regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
                   onChange={value => this.setState({ pinVar: value })}
-                  style={{ paddingLeft: 100, paddingTop: 40 }}
+                  style={{ paddingLeft: 90, paddingTop: 40 }}
                 />
                 <div style = {{paddingTop: 45}}>
                   <ButtonResend onClick={this.onResend}><AiOutlineReload size = {20}/> </ButtonResend>
                 </div>
               </div>
-              <div style={{ paddingTop: 15, paddingLeft: 8 }}>
+              <div style={{ paddingTop: 15, paddingLeft: 5,color:'black'}}>
                 <Countdown date={Date.now() + 10000 * 6 * 3}>
                   <Completionist />
                 </Countdown>

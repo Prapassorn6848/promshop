@@ -47,7 +47,7 @@ class Home extends Component {
     render() {
         
         return (
-            <div><h1 class="top ">Promshop SHOP</h1>
+            <div><h1 class="top ">PROMSHOP</h1>
                 <h4 class="tester">Mariarty
                 <a class="button" href="#">
                 <img src="https://sv1.picz.in.th/images/2021/10/10/u4F2xu.png" alt="logout.png" /></a>
