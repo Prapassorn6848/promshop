@@ -131,11 +131,11 @@ class Sign_Up extends Component {
             <div style={{direction:'row',width:"100%",height:"100vh",backgroundColor:"#29292B"}}>
                 <div style={{textAlign:'center',justifyContent:"center",alignItems:"center"}}>
                     <div style={{height:"5vh"}}></div>
-                    <h2 style={{color:"#FFB636",fontSize:"40px",fontWeight:"500"}}>Sign up</h2>
+                    <h2 style={{color:"#FFB636",fontSize:"40px", fontWeight:"600"}}>Sign up</h2>
                     <div style={{height:"0.5vh"}}></div>
                     <a1 style={{color:"#FFB636",fontSize:"16px"}}>Please fill this form to create an account!</a1>
                 </div>
-                <div style={{alignItems:"center",padding:'15px'}}>
+                <div style={{alignItems:"center",paddingTop:'10px'}}>
                     <div style={{marginLeft:'35%'}}>
                         <div>
                             <a1 style={{color:"#FFB636",fontSize:"16px"}} type="text">First Name</a1>
