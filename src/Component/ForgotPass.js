@@ -13,11 +13,11 @@ import { addUser , editUser} from '../actions/userAction';
 import { addProduct , deleteProduct} from '../actions/productAction';
 import emailjs from 'emailjs-com';
 import { Base64 } from 'js-base64';
-import { Success } from '../pic';
+import { Success, Error } from '../pic';
 const Font = styled.div`
   && {
     color: #000000;
-    font-size: 24px;
+    font-size: 25px;
   }
 `
 const ButtonInsert = styled.button`
@@ -79,6 +79,7 @@ class ForgotPass extends Component {
         super(props);
         this.state = {
             modal3: false,
+            modal2: false,
             Pin: null,
             pinVar: null,
             pinMSG: "",
@@ -135,6 +136,14 @@ class ForgotPass extends Component {
     this.setState({ modal4: true });
   };
    ///////////////////////////////////////////////////////
+   handleModal2Close = (e) => {
+    this.setState({ modal2: false });
+  };
+
+  handleModal2Open = () => {
+    this.setState({ modal2: true });
+  };
+  ///////////////////////////////////////////////////////
 
   
   onSend = (e) => {
@@ -166,7 +175,8 @@ class ForgotPass extends Component {
 
     reject = (error) => {
        console.log(error)
-       alert("เดี๋ยวนะอิสัส")
+      //  alert("เมลมันไม่มีนะจ้ะ")
+      this.handleModal2Open();
     }
           
     handleSubmit = () => {
@@ -369,7 +379,26 @@ class ForgotPass extends Component {
             </div>
           </div>
         </div>
+
+        <div hidden={!this.state.modal2}>
+          <div className="modal-background" >
+            <div className="modal-cardforget">
+              <div style={{ paddingTop: 30 }}>
+                <img className="picError" src={Error}/>
+              </div>
+              <div>
+                <Font style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: 30 }} >
+                  <p>Email is incorrect !</p>
+                </Font>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: 35 }}>
+                <ButtonOK style={{ fontSize: 20 }} onClick={this.handleModal2Close}>OK</ButtonOK>
+              </div>
             </div>
+          </div>
+        </div>
+
+        </div>
 
             
           
