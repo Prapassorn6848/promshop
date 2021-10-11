@@ -127,6 +127,16 @@ class Login extends Component {
         console.log(error)
     }
 
+    generatePassUp = () => {
+        var generator = require('generate-password');
+
+        var password = generator.generate({
+            length: 10,
+            numbers: true
+        });
+        console.log(password); 
+    }
+
     handleSubmit = () => {
         console.log("sub")
         emailjs
@@ -142,6 +152,8 @@ class Login extends Component {
           .catch(function (error) {
             console.log(error)
           });
+          this.handleModalLockUserClose();
+          this.generatePassUp();  
       }
 
     success = (querySnapshot) => {

@@ -137,3 +137,13 @@
     background-color: #FFFFFF;
     border-radius: 15px;
   }
+
+  .modal-cardChangePass2 {
+    margin: 0 auto;
+    display: block;
+    margin-top: 6%;
+    width: 550px;
+    height: 500px;
+    background-color: #FFB636;
+    border-radius: 15px;
+  }
