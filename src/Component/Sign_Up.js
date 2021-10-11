@@ -48,8 +48,7 @@ class Sign_Up extends Component {
             email:'',
             passwd:'',
             department:'',
-            /*today: new Date()*/
-            currentDate: date,
+            todayS: new Date(),
             modalfill: false,
 
         };
@@ -70,7 +69,7 @@ class Sign_Up extends Component {
     };
     
     onAdd = () => {
-        /*const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         
         if ((this.state.firstname !== '') && (this.state.lastname !== '') && (this.state.username !== '') && (this.state.email !== '') && (this.state.passwd !== '') && (this.state.department !== '') ) {
             
@@ -83,7 +82,7 @@ class Sign_Up extends Component {
             
         }else {
             this.handleModalfillOpen()
-        }*/
+        }
         console.log(this.state.todayS)
     }
 
@@ -107,7 +106,7 @@ class Sign_Up extends Component {
             email: this.state.email,
             department: this.state.department,
             passwd: Base64.encode(this.state.passwd),
-            currentDate : this.state.currentDate,
+            todayS : this.state.todayS,
         }
         firestore.addUser(user, this.addSuccess, this.addReject)
     }
