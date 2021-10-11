@@ -50,7 +50,6 @@ class Sign_Up extends Component {
             email:'',
             passwd:'',
             department:'',
-            canAdd: true,
             /*today: new Date()*/
             currentDate: date,
             modalfill: false,
@@ -74,29 +73,14 @@ class Sign_Up extends Component {
         
         if ((this.state.firstname !== '') && (this.state.lastname !== '') && (this.state.username !== '') && (this.state.email !== '') && (this.state.passwd !== '') && (this.state.department !== '') ) {
             
-            firestore.getUser(this.state.email, this.getSuccess, this.getReject)
-            
             if(re.test(this.state.email)===false){
                 alert("Invalid Email")
+            }else{
+                firestore.getUser(this.state.email, this.getSuccess, this.getReject)
+    
             }
-            if (this.state.canAdd === false) {
-                alert('Email is already have.')
-            } else {
-                //firebase
-                const user = {
-                    firstname: this.state.firstname,
-                    lastname: this.state.lastname,
-                    username: this.state.username,
-                    email: this.state.email,
-                    department: this.state.department,
-                    passwd: Base64.encode(this.state.passwd),
-                    currentDate : this.state.currentDate,
-                }
-                firestore.addUser(user, this.addSuccess, this.addReject)
-            }
-
+            
         }else {
-            // alert('Please complete all infomations.')
             this.handleModalfillOpen()
         }
 
@@ -109,16 +93,22 @@ class Sign_Up extends Component {
             user.id = doc.id
             this.setState({ user: user })
         });
-        /*console.log(user.pass)
-        console.log(this.state.user.pass)*/
         this.setState({canAdd : false})
-        /*console.log(this.state.account)*/
+        alert('Email is already have.')
     }
 
     getReject = (error) => {
         console.log(error)
-        this.setState({canAdd : true})
-        // alert("Email or Password is incorrect")
+        const user = {
+            firstname: this.state.firstname,
+            lastname: this.state.lastname,
+            username: this.state.username,
+            email: this.state.email,
+            department: this.state.department,
+            passwd: Base64.encode(this.state.passwd),
+            currentDate : this.state.currentDate,
+        }
+        firestore.addUser(user, this.addSuccess, this.addReject)
     }
 
     addSuccess = (doc) => {
