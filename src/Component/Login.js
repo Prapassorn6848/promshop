@@ -82,6 +82,7 @@ class Login extends Component {
             canLogin:false,
             countLogin: 0,
             modalLockUser:false,
+            todayL:new Date(),
         };
         this._reCaptchaRef = React.createRef();
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -100,9 +101,28 @@ class Login extends Component {
 
     onChangePassword =()=>{
         if(this.state.conpassword === this.state.newpassword){
-            console.log("Not Success")
+            const user = {
+                id:this.state.user.id,
+                todayS:this.state.todayL,
+                passwd:Base64.encode(this.state.newpassword)
+            }
+            firestore.updateUser(user, this.editSuccess, this.editReject)
         }
+        else{
+            alert("Confirm Password Not Match")
+        }
+        this.setState({ modalChangePass: false });
+
     }
+    
+    editSuccess = () => {
+        console.log('Edit Success')
+    }
+
+    editReject = (error) => {
+        console.log(error)
+    }
+
     handleSubmit = () => {
         console.log("sub")
         emailjs
@@ -175,7 +195,7 @@ class Login extends Component {
         /*console.log(user.pass)
         console.log(this.state.user.pass)*/
         let timeData = new Date(user.todayS.toMillis())
-        let todayL = new Date();
+        let todayL = this.state.todayL
 
         console.log(timeData)
         console.log(todayL)
@@ -392,29 +412,6 @@ class Login extends Component {
                             </ButtonCreateAc>
                         </div>
                     
-                        <div style={{ marginLeft: '60%' }}>
-                            <Button variant="link" onClick={() => {window.location.href="/forgotpass"}}>
-                                Forgotten password ?
-                            </Button>
-                        </div>
-                    
-                        <div style={{marginLeft:'31%'}}>
-                            <ReCAPTCHA sitekey="6Le9Zb8cAAAAAP1uib6Occmbc5Kc7xX1PFgzklYX" onChange={this.onChange} />
-                        </div>
-                        
-                        <div style={{ textAlign: 'center', paddingTop: "20px" }}>
-                            <ButtonLogin style={{ fontSize: '28px', fontWeight: 'bold', color: '#29292B', paddingTop: "2px" }}
-                                onClick={this.onLogin}>
-                                Login
-                            </ButtonLogin>
-                        </div>
-                        
-                        <div style={{ textAlign: 'center', paddingTop: "35px" }}>
-                            <ButtonCreateAc style={{ fontSize: '24px', fontWeight: 'bold', color: "#29292B", paddingTop: "5px" }}
-                                onClick={() => {window.location.href="/signup"}}>
-                                Create New Account
-                            </ButtonCreateAc>
-                        </div>
                         </div>
 
                     </div>

@@ -51,7 +51,7 @@ class Firestore {
         firebase
             .firestore()
             .collection('User')
-            .doc(user.email)
+            .doc(user.id)
             .update({
                 passwd: user.passwd,
                 todayS: user.todayS,
