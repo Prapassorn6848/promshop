@@ -57,15 +57,15 @@ class HomeAdmin extends Component {
         return (
             <div><h1 class="topja" style={{ fontWeight: "500" }}>PROMSHOP</h1>
                 <div class="testerja">
-                    <div>
-                        <h1 style={{ fontSize: '30px', fontWeight: "500", color: "black" }}>{this.props.userList[this.props.userList.length - 1].username}</h1>
+                    <div style={{ marginLeft: '460%', marginRight:'10%'}}>
+                        <h1 style={{ fontSize: '30px', fontWeight: "600", color: "black" }}>{this.props.userList[this.props.userList.length - 1].username}</h1>
                     </div>
 
-                    <div style={{ marginLeft: '10%', marginTop: '3%' ,marginRight:'10%'}}>
+                    <div style={{ marginLeft: '6%',marginRight:'10%'}}>
                         <FiLogOut size={35} onClick={() => window.location.href = "/"} style={{ cursor: 'pointer', color: "black" }} />
                     </div>
                 </div>
-                <h4 style={{ fontSize: '16px', marginLeft: '93%', color: 'white', marginTop: '-1.5%', color: "black", fontWeight: "500" }}>{this.props.userList[this.props.userList.length - 1].department}</h4>
+                <h4 style={{ fontSize: '16px', marginLeft: '90%', color: 'white', marginTop: '-0.3%', color: "black", fontWeight: "600" }}>{this.props.userList[this.props.userList.length - 1].department}</h4>
                 <div class="text-box">
                     <a href="#" class="btn btn btn-white btn-animate " onClick={() => window.location.href = "/view"}><FiShoppingBag size={30} /> Stock</a>
                 </div>
