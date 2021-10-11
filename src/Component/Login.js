@@ -78,6 +78,8 @@ class Login extends Component {
             captcha: null,
             isVerified: false,
             genPass:null,
+            count:null,
+            emailVar:null,
 
 
             modalChangePass: false,
@@ -128,7 +130,55 @@ class Login extends Component {
         console.log(error)
     }
 
-    generatePassUp = () => {
+  
+
+    /////////////////////////////////////////////////
+
+    LockUser = (e) => {
+        console.log("feen")
+        e.preventDefault()
+        firestore.getUser(this.state.email, this.success, this.reject)
+    }
+    reject = (error) => {
+        console.log(error)
+      }
+    
+    success = (querySnapshot) => {
+        let user;
+        querySnapshot.forEach(doc => {
+          user = doc.data()
+          user.id = doc.id
+          console.log("sussss")
+          this.setState({
+            user: user
+          })
+        });
+        if (user.email != this.state.email) {
+          console.log("error")
+        } else {
+            console.log(user);
+            this.handleSubmit();
+        }
+      }
+      handleSubmit = () => {
+        console.log("sub")
+        emailjs
+          .sendForm(
+            "service_o6xyl18",
+            "template_duxdz8c",
+            ".forget_Pass",
+            "user_fB00kPeUl1v618UKVJoEZ",
+          )
+          .then(function () {
+            console.log('Send')
+          })
+          .catch(function (error) {
+            console.log(error)
+          });
+          this.handleModalLockUserClose();
+          this.generatePassUp();  
+      }
+      generatePassUp = () => {
         var generator = require('generate-password');
 
         var password = generator.generate({
@@ -153,44 +203,7 @@ class Login extends Component {
     upReject = (error) => {
         console.log(error)
     }
-    
-
-    handleSubmit = () => {
-        console.log("sub")
-        emailjs
-          .sendForm(
-            "service_o6xyl18",
-            "template_q34buoh",
-            ".forget_Pass",
-            "user_fB00kPeUl1v618UKVJoEZ",
-          )
-          .then(function () {
-            console.log('Send')
-          })
-          .catch(function (error) {
-            console.log(error)
-          });
-          this.handleModalLockUserClose();
-          this.generatePassUp();  
-      }
-
-    success = (querySnapshot) => {
-        let user;
-        querySnapshot.forEach(doc => {
-          user = doc.data()
-          user.id = doc.id
-          console.log("sussss")
-          this.setState({
-            user: user
-          })
-        });
-        if (user.email != this.state.email) {
-          console.log("error")
-        } else {
-            console.log(user);
-            this.handleSubmit();
-        }
-      }
+    /////////////////////////////////////////////////////////////////////
 
     
 
@@ -203,23 +216,17 @@ class Login extends Component {
         }
 
         else {
-            firestore.getUser(this.state.email, this.getSuccess, this.getReject)
+            this.setState({count:this.state.count + 1});
+            console.log(this.state.count);
+
+            if(this.state.count > 4){
+                alert("มึงเข้าเยอะไปปะ");
+            }else{
+                
+                firestore.getUser(this.state.email, this.getSuccess, this.getReject)
+            } 
         }
     }
-
-    reject = (error) => {
-        console.log(error)
-      }
-      
-    LockUser = (e) => {
-        console.log("feen")
-        e.preventDefault()
-        firestore.getUser(this.state.email, this.success, this.reject)
-    }
-
-   
-
-
 
     getSuccess = (querySnapshot) => {
         let user;
@@ -259,18 +266,19 @@ class Login extends Component {
             /*window.location.href="/home"*/
         } else {
             this.setState({countLogin:this.state.countLogin + 1})
-            if(this.state.countLogin > 3){
-                alert("เปลี่ยนรหัสดิ้")
-                if(this.state.countLogin === 5){
-                    alert("โปรดเปลี่ยนรหัสผ่าน")
-                    this.handleModalLockUserOpen();
-                }
-
-            }else{
+            if(this.state.countLogin < 4){
                 this.handleModalPasswrongOpen();
                 console.log(this.state.countLogin)
             }
-           
+            if(this.state.countLogin > 3 && this.state.countLogin < 5){
+                alert("เปลี่ยนรหัสดิ้")  
+            
+            }
+            if(this.state.countLogin === 5){
+                alert("โปรดเปลี่ยนรหัสผ่าน")
+                this.handleModalLockUserOpen();
+            
+            }
             
         }
         /*console.log(this.state.account)*/
@@ -418,7 +426,8 @@ class Login extends Component {
 
                             <div style={{ textAlign: 'center' }}>
                                 <input style={{ marginTop: '10px', width: 500, height: 40, color: "black" }} type="text" name="email"
-                                    onChange={txt => this.setState({ email: txt.target.value })} />
+                                    onChange={txt => this.setState({ email: txt.target.value,
+                                        count:0 })} />
                             </div>
 
                             <div style={{ marginLeft: '17%', marginTop: '2%' }}>
@@ -488,6 +497,10 @@ class Login extends Component {
                             id="email"
                             name="email"
                             value={this.state.email}></input>
+                            <input type="hidden"
+                            id = "name"
+                            name = "name"
+                            value={this.state.name} ></input>
                         </div>
                         <div className="modal-cardPasswrong">
                             <div style={{ textAlign: 'center', justifyContent: "center", alignItems: "center" }}>
@@ -507,9 +520,6 @@ class Login extends Component {
                     </form>
                 </div>
             
-
-
-
                     <div hidden={!this.state.modalSendsuccess}>
                         <div className="modal-backgroundSendSuccess" onClick={this.handleModalSendsuccessClose}>
                             <div className="modal-cardSendSuccess">

@@ -136,6 +136,12 @@ class ForgotPass extends Component {
   };
    ///////////////////////////////////////////////////////
 
+   onResend = (e) =>{
+    this.onSend(e)
+    this.handleModal3Close()
+    this.handleModal4Close()
+  }
+
   
   onSend = (e) => {
     console.log(this.state.email);
