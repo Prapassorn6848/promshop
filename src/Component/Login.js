@@ -16,7 +16,7 @@ const TEST_SITE_KEY = "6Le9Zb8cAAAAAP1uib6Occmbc5Kc7xX1PFgzklYX";
 const DELAY = 1500;
 
 const ButtonTry = styled.button`
-  background: #FFB636;
+  background: #29292B;
   border: 2px;
   color: #ffffff;
   width: 121px;
@@ -244,7 +244,7 @@ class Login extends Component {
                         <div className="modal-cardPasswrong">
                             <div style={{ textAlign: 'center', justifyContent: "center", alignItems: "center" }}>
                                 <div style={{ height: "2vh" }}></div>
-                                <a1 style={{ color: "#29292B", fontSize: "32px", fontWeight: "bold" }}>Login Failed</a1>
+                                <a1 style={{ color: "#29292B", fontSize: "32px", fontWeight: "900" }}>Login Failed</a1>
                                 <div style={{ height: "1.8vh" }}></div>
                                 <a1 style={{ color: "#29292B", fontSize: "24px" }}>Username or password is incorrect.</a1>
                                 <div style={{ height: "0.1vh" }}></div>
@@ -290,7 +290,7 @@ class Login extends Component {
                                     <img className="picError" src={Success} />
                                 </div>
                                 <div style={{ height: "4vh" }}></div>
-                                <a1 style={{ color: "#29292B", fontSize: "30px", fontWeight: "bold" }}>Register Success</a1>
+                                <a1 style={{ color: "#868181", fontSize: "30px", fontWeight: "bold" }}>Register Success</a1>
                                 <div style={{ height: "1.8vh" }}></div>
                             </div>
                             {/* <div style={{textAlign:'center', paddingTop: "5"}}>

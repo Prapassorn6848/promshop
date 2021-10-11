@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import './SignStyle.css'
 import history from '../history'
+import firestore from '../firebase/firestore'
+import { Base64 } from 'js-base64';
 
 
 const options = [
@@ -27,11 +29,74 @@ class Sign_Up extends Component {
             username:'',
             email:'',
             passwd:'',
-            gender: '',
-            position:'',
+            department:'',
+            canAdd: true,
 
         };
     }
+
+    onAdd = () => {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        
+        if ((this.state.firstname !== '') && (this.state.lastname !== '') && (this.state.username !== '') && (this.state.email !== '') && (this.state.passwd !== '') && (this.state.department !== '') ) {
+            
+            firestore.getUser(this.state.email, this.getSuccess, this.getReject)
+            
+            if(re.test(this.state.email)===false){
+                alert("Invalid Email")
+            }
+            if (this.state.canAdd === false) {
+                alert('Email is already have.')
+            } else {
+                //firebase
+                const user = {
+                    firstname: this.state.firstname,
+                    lastname: this.state.lastname,
+                    username: this.state.username,
+                    email: this.state.email,
+                    department: this.state.department,
+                    passwd: Base64.encode(this.state.email),
+                }
+                firestore.addUser(user, this.addSuccess, this.addReject)
+            }
+
+        }else {
+            alert('Please complete all infomations.')
+        }
+
+    }
+
+    getSuccess = (querySnapshot) => {
+        let user;
+        querySnapshot.forEach(doc => {
+            user = doc.data()
+            user.id = doc.id
+            this.setState({ user: user })
+        });
+        /*console.log(user.pass)
+        console.log(this.state.user.pass)*/
+        this.setState({canAdd : false})
+        /*console.log(this.state.account)*/
+    }
+
+    getReject = (error) => {
+        console.log(error)
+        this.setState({canAdd : true})
+        // alert("Email or Password is incorrect")
+    }
+
+    addSuccess = (doc) => {
+        console.log(doc.id)
+        history.push('/')
+    }
+
+    addReject = (error) => {
+        console.log(error)
+    }
+
+
+
+    
 
     render() {
         return (
@@ -41,7 +106,7 @@ class Sign_Up extends Component {
                     <h2 style={{color:"#FFB636",fontSize:"40px"}}>Sign up</h2>
                     <div style={{height:"0.5vh"}}></div>
                     <a1 style={{color:"#FFB636",fontSize:"15px"}}>Please fill this form to create an account!</a1>
-                </div>\
+                </div>
                 <div style={{alignItems:"center",paddin:'10px'}}>
                     <div style={{marginLeft:'35%'}}>
                         <div>
@@ -95,37 +160,20 @@ class Sign_Up extends Component {
                 </div>
                 <div style={{alignItems:"center"}}>
                     <div style={{marginLeft:'35%',paddingTop:'0.5%'}}>
-                        <a1 style={{color:"#FFB636",fontSize:"16px"}} type="text">Gender</a1>
+                        <a1 style={{color:"#FFB636",fontSize:"16px"}} type="text">Department</a1>
                     </div> 
                     <div style={{marginLeft:'35%',paddingTop:'0.5%'}}>
-                        <input type="radio" value="Male" name="gender" 
-                        onChange={txt => this.setState({ gender: 'Male' })}/><label style={{paddingLeft:'1%', paddingRight:'2%',color:'#FFB636'}}>Male</label>
-                        <input type="radio" value="Female" name="gender" 
-                        onChange={txt => this.setState({ gender: 'Female' })}/><label style={{paddingLeft:'1%', paddingRight:'2%',color:'#FFB636'}}> Female</label>
-                        <input type="radio" value="Other" name="gender" 
-                        onChange={txt => this.setState({ gender: 'Other' })}/><label style={{paddingLeft:'1%', paddingRight:'2%',color:'#FFB636'}}>Prefer not to say</label>
+                        <input type="radio" value="Officer" name="department" 
+                        onChange={txt => this.setState({ department: 'Officer' })}/><label style={{paddingLeft:'1%', paddingRight:'2%',color:'#FFB636'}}>Officer</label>
+                        <input type="radio" value="Manager" name="department" 
+                        onChange={txt => this.setState({ department: 'Manager' })}/><label style={{paddingLeft:'1%', paddingRight:'2%',color:'#FFB636'}}> Manager</label>
+                        <input type="radio" value="Admin" name="department" 
+                        onChange={txt => this.setState({ department: 'Admin' })}/><label style={{paddingLeft:'1%', paddingRight:'2%',color:'#FFB636'}}>Admin</label>
                     </div> 
-                </div>
-                <div className="Position">
-                    <div style={{marginLeft:'35%',paddingTop:'0.5%'}}>
-                        <div>
-                            <a1 style={{color:"#FFB636",fontSize:"16px"}} type="text">Position</a1>
-                        </div>
-                    </div> 
-                    <div style={{textAlign:'left', marginLeft:'35%',paddingTop:'0.5%'}}>
-                        <div id="App">
-                            <div className="select-container">
-                                <select >
-                                    {options.map((option) => (
-                                    <option value={option.value}>{option.label}</option>
-                                    ))}
-                                </select>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div style={{marginLeft:'45%',paddingTop:'1%'}}>
-                    <button style={{ width: 200,height:50,borderRadius:'40px',fontSize:'20px',fontWeight:'bold',fontFamily:"initial",color:'#000000',cursor: 'pointer',backgroundColor:'#FFB636'}}>
+                    <button style={{ width: 200,height:50,borderRadius:'40px',fontSize:'20px',fontWeight:'bold',fontFamily:"initial",color:'#000000',cursor: 'pointer',backgroundColor:'#FFB636'}}
+                    onClick={this.onAdd}>
                         Sign up
                     </button>
                 </div>
