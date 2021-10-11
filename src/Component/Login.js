@@ -12,6 +12,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import firestore from '../firebase/firestore'
 import { Alert } from 'bootstrap';
 
+
 const TEST_SITE_KEY = "6Le9Zb8cAAAAAP1uib6Occmbc5Kc7xX1PFgzklYX";
 const DELAY = 1500;
 
@@ -89,7 +90,7 @@ class Login extends Component {
         /*console.log(user.pass)
         console.log(this.state.user.pass)*/
         if (user.pass === this.state.pass) {
-            history.push("/home")
+            window.location.href="/home "
             /*window.location.href="/home"*/
         } else {
             alert("Email or Password is incorrect")
@@ -211,9 +212,7 @@ class Login extends Component {
                         </div>
                     </div>
                     <div style={{ marginLeft: '60%' }}>
-                        <Button variant="link" onClick={() => history.push({
-                            pathname: '/forgotpass',
-                        })}>
+                        <Button variant="link" onClick={() => {window.location.href="/forgotpass"}}>
                             Forgotten password ?
                         </Button>
                     </div>
@@ -228,7 +227,7 @@ class Login extends Component {
                     </div>
                     <div style={{ textAlign: 'center', paddingTop: "35px" }}>
                         <ButtonCreateAc style={{ fontSize: '24px', fontWeight: 'bold', color: "#29292B", paddingTop: "5px" }}
-                            onClick={() => history.push({ pathname: '/signup', })}>
+                            onClick={() => {window.location.href="/signup"}}>
                             Create New Account
                         </ButtonCreateAc>
                     </div>
