@@ -7,7 +7,6 @@ import { render } from 'react-dom';
 import {Warning } from '../pic';
 import styled, { css } from 'styled-components'
 import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
-
 import './Style.css';
 import { connect } from 'react-redux';
 import { addUser , editUser} from '../actions/userAction';
@@ -115,7 +114,7 @@ class Sign_Up extends Component {
 
     addSuccess = (doc) => {
         console.log(doc.id)
-        history.push('/')
+        window.location.href="/"
     }
 
     addReject = (error) => {

@@ -47,11 +47,11 @@ class Firestore {
                 reject(error);
             });
     };
-    updateUserByID = (user, success, reject) => {
+    updateUser = (user, success, reject) => {
         firebase
             .firestore()
             .collection('User')
-            .doc(user.email)
+            .doc(user.id)
             .update({
                 passwd: user.passwd,
                 todayS: user.todayS,
@@ -63,6 +63,7 @@ class Firestore {
                 reject(error);
             });
     };
+
     getAllProduct(success, reject) {
         firebase
             .firestore()
