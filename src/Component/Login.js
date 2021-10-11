@@ -229,8 +229,8 @@ class Login extends Component {
     render() {
 
         return (
-
-            <div style={{ direction: 'row', width: "100%", height: "100vh", backgroundColor: "#29292B" }}>
+            <div className="bgLogin">
+            <div style={{ direction: 'row', width: "100%", height: "100vh"}}>
                 <div style={{ marginLeft: "50%", direction: 'column', height: "100vh" }}>
                     <div style={{ textAlign: 'center', justifyContent: "center", alignItems: "center" }}>
                         <div style={{ height: "8vh" }}></div>
@@ -367,7 +367,7 @@ class Login extends Component {
                 </div>
 
             </div >
-
+            </div>                        
         )
     }
 }
