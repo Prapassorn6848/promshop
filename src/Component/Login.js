@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+
 import history from '../history'
 import './Modal.css';
 import styled, { css } from 'styled-components'
@@ -53,6 +54,7 @@ const ButtonCreateAc = styled.button`
 class Login extends Component {
     constructor(props) {
         super(props);
+        
         this.state = {
             modalPasswrong: false,
             modalSendsuccess: false,
@@ -62,20 +64,23 @@ class Login extends Component {
             value: "[empty]",
             load: false,
             expired: "false",
-            user :null,
-            pass : null,
-            email:null,
+            user: null,
+            pass: null,
+            email: null,
+            captcha: null,
+            isVerified: false,
+            canLogin:false,
         };
         this._reCaptchaRef = React.createRef();
     }
 
-    onLogin= () => {
 
-        if (this.state.email === null || this.state.email === "" || this.state.pass === null || this.state.pass === "" ) {
-          console.log("Empty input!!")
-        //   alert("กรอกให้ครบอิสัส")
+    onLogin = () => {
+        if (this.state.email === null || this.state.email === "" || this.state.pass === null || this.state.pass === "") {
+            console.log("Empty input!!")
             this.handleModalfillOpen()
         }
+
         else {
             firestore.getUser(this.state.email, this.getSuccess, this.getReject)
         }
@@ -93,8 +98,14 @@ class Login extends Component {
         /*console.log(user.pass)
         console.log(this.state.user.pass)*/
         if (Base64.decode(user.passwd) === this.state.pass) {
-            
-            window.location.href="/homeAdmin"
+            if(this.state.isVerified){
+                window.location.href="/homeAdmin"
+            }
+            else{
+                alert("Please verify if you are human!!");
+            }
+
+            /*window.location.href="/home"*/
         } else {
             this.handleModalPasswrongOpen();
             // alert("Email or Password is incorrect")
@@ -158,7 +169,7 @@ class Login extends Component {
         loadCaptchaEnginge(6);
     };*/
     //Capt2
-    componentDidMount() {
+    /*componentDidMount() {
         setTimeout(() => {
             this.setState({ load: true });
         }, DELAY);
@@ -173,7 +184,7 @@ class Login extends Component {
     asyncScriptOnLoad = () => {
         this.setState({ callback: "called!" });
         console.log("scriptLoad - reCaptcha Ref-", this._reCaptchaRef);
-    };
+    };*/
     /////////
     /*doSubmit = () => {
         let user_captcha = document.getElementById('user_captcha_input').value;
@@ -190,12 +201,35 @@ class Login extends Component {
         }
     };*/
     //////////
+
+    /*chaptcha*/
+
     onChange = (value) => {
-        console.log("Captcha value:", value)
+        this.setState({ captcha: value })
+        if (this.state.captcha) {
+            this.setState({isVerified:true});
+            console.log("Captcha value:", value);
+        }
     }
+    /*onCaptchaLoad = () => {
+        console.log('Captcha loaded.')
+    }
+    verifyCaptcha = (res) => {
+        if (res) {
+            this.setState({ human: true, humanKey: res })
+            this.setState({ disabled: this.isDisabled() })
+        }
+    }
+    // ReCAPTCHA Expired
+    expireCaptcha = () => {
+        this.setState({ human: false, humanKey: null })
+        this.setState({ disabled: this.isDisabled() })
+    }*/
 
     render() {
+
         return (
+
             <div style={{ direction: 'row', width: "100%", height: "100vh", backgroundColor: "#29292B" }}>
                 <div style={{ marginLeft: "50%", direction: 'column', height: "100vh" }}>
                     <div style={{ textAlign: 'center', justifyContent: "center", alignItems: "center" }}>
@@ -230,8 +264,13 @@ class Login extends Component {
                             Forgotten password ?
                         </Button>
                     </div>
-                    <div style={{marginLeft:'31%'}}>
-                        <ReCAPTCHA sitekey="6Le9Zb8cAAAAAP1uib6Occmbc5Kc7xX1PFgzklYX" onChange={this.onChange} />
+                    <div style={{ marginLeft: '31%' }}>
+                        <ReCAPTCHA
+                            sitekey="6Le9Zb8cAAAAAP1uib6Occmbc5Kc7xX1PFgzklYX"
+                            type={Image}
+                            theme="dark"
+                            onChange={this.onChange}
+                        />
                     </div>
                     <div style={{ textAlign: 'center', paddingTop: "20px" }}>
                         <ButtonLogin style={{ fontSize: '28px', fontWeight: '600', color: '#29292B', paddingTop: "2px" }}
@@ -267,7 +306,7 @@ class Login extends Component {
                     </div>
                 </div>
 
-                
+
 
                 <div hidden={!this.state.modalSendsuccess}>
                     <div className="modal-backgroundSendSuccess" onClick={this.handleModalSendsuccessClose}>
