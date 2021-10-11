@@ -77,6 +77,7 @@ class Login extends Component {
             email: null,
             captcha: null,
             isVerified: false,
+            genPass:null,
 
 
             modalChangePass: false,
@@ -134,8 +135,25 @@ class Login extends Component {
             length: 10,
             numbers: true
         });
-        console.log(password); 
+        this.setState({genPass : password});
+        console.log(this.state.genPass);
+        
+        const user = {
+            id:this.state.user.id,
+            passwd: Base64.encode(this.state.genPass),
+            todayS: this.state.todayL,
+            email: this.state.user.email,
+          } 
+          firestore.updateUser(user, this.upSuccess, this.upReject)
     }
+    upSuccess = () => {
+        alert('Update password success')
+    }
+    
+    upReject = (error) => {
+        console.log(error)
+    }
+    
 
     handleSubmit = () => {
         console.log("sub")
@@ -227,7 +245,9 @@ class Login extends Component {
                     setTimeout(() => {window.location.href="/homeAdmin"}, 2000);
                 }
                 else{
-                    window.location.href="/homeAdmin"                    
+                    this.props.addUser(user)
+                    console.log(this.props.userList);
+                    window.location.href="/homeAdmin"                
                 }
             }
             else{
