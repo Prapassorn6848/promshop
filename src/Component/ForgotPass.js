@@ -80,6 +80,7 @@ class ForgotPass extends Component {
         this.state = {
             modal3: false,
             modal2: false,
+            modalChangsuc: false,
             Pin: null,
             pinVar: null,
             pinMSG: "",
@@ -144,7 +145,15 @@ class ForgotPass extends Component {
     this.setState({ modal2: true });
   };
   ///////////////////////////////////////////////////////
+  handleModalChangesucClose = (e) => {
+    this.setState({ modalChangsuc: false });
+  };
 
+
+  handleModalChangesucOpen = () => {
+    this.setState({ modalChangsuc: true });
+  };
+  ///////////////////////////////////////////////////////////
   
   onSend = (e) => {
     console.log(this.state.email);
@@ -216,7 +225,8 @@ class ForgotPass extends Component {
     
     upSuccess = () => {
       
-      alert('Update password success')
+      // alert('Update password success')
+      this.handleModalChangesucOpen();
       this.setState({ modal4: !this.state.modal4 });
     }
     upReject = (e) => {
@@ -259,9 +269,9 @@ class ForgotPass extends Component {
                 <div class='forgot' >
                 <form className='forget_Pass'>
                     <h1 class= 'text'>Password Reset</h1>
-                    <a1 class= 'text1'>Enter your username, or the email address that you used to register.</a1>
+                    <a1 class= 'text1'>Enter your email address that you used to register.</a1>
                     <div></div>
-                    <a1 class= 'text1'>We'll send you an email with your username and a link to reset your password.</a1>
+                    <a1 class= 'text1'>We'll send PIN to your email for reset your password.</a1>
                     <div style={{width:'100%',height:'1vh' ,backgroundColor:'#29292B'}}></div>                    
                     <div style={{ justifyContent: 'center', alignItems: 'center', paddingTop: '20' }}>
                       <input class='input' type="text"
@@ -393,6 +403,24 @@ class ForgotPass extends Component {
               </div>
               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: 35 }}>
                 <ButtonOK style={{ fontSize: 20 }} onClick={this.handleModal2Close}>OK</ButtonOK>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div hidden={!this.state.modalChangsuc}>
+          <div className="modal-background">
+            <div className="modal-cardforget">
+              <div style={{ paddingTop: 30 }}>
+                <img className="picSuccess" src={Success} />
+              </div>
+              <div>
+                <Font style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: 25 }} >
+                  <p>Update Password Success !</p>
+                </Font>
+              </div>
+              <div style={{ paddingLeft: 5, paddingTop: 30 }}>
+                <ButtonOK style={{ fontSize: 20 }} onClick={this.handleModalChangesucClose}>OK</ButtonOK>
               </div>
             </div>
           </div>
