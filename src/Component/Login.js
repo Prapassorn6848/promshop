@@ -256,7 +256,11 @@ class Login extends Component {
                 else{
                     this.props.addUser(user)
                     console.log(this.props.userList);
-                    window.location.href="/homeAdmin"                
+                    if(user.department === "Officer"){
+                        window.location.href="/homeUser"
+                    }else{
+                        window.location.href="/homeAdmin"
+                    }                
                 }
             }
             else{

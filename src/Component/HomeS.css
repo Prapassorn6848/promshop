@@ -12,14 +12,14 @@ img {
 .testerja{
   display: flex;
   width: 300px;
-  height: 8vh;
+  height: 7vh;
   background-color:#FFB636;
   color: white;
   justify-items: flex-end;
   text-align:right;
   align-items: flex-end;
   font-size: 20px;
-  margin-top: -10vh;
+  margin-top: -12vh;
 }
 .topja{
   background-color: #FFB636;

@@ -78,7 +78,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
     return {
         userList: state.userReducer.userList,
-        products: state.productReducer.products,
+        productsList: state.productReducer.productsList,
     };
 };
 
