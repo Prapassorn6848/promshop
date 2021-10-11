@@ -93,7 +93,7 @@ class Sign_Up extends Component {
             user.id = doc.id
             this.setState({ user: user })
         });
-        this.setState({canAdd : false})
+        console.log(user.firstname)
         alert('Email is already have.')
     }
 
