@@ -40,9 +40,6 @@ const ButtonTry = styled.button`
 class Sign_Up extends Component {
     constructor(props) {
         
-        var today = new Date(),
-        date = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate();
-
         super(props);
         this.state = {
             firstname:'',
@@ -51,8 +48,7 @@ class Sign_Up extends Component {
             email:'',
             passwd:'',
             department:'',
-            /*today: new Date()*/
-            currentDate: date,
+            todayS: new Date(),
             modalfill: false,
 
         };
@@ -87,7 +83,7 @@ class Sign_Up extends Component {
         }else {
             this.handleModalfillOpen()
         }
-
+        console.log(this.state.todayS)
     }
 
     getSuccess = (querySnapshot) => {
@@ -97,7 +93,7 @@ class Sign_Up extends Component {
             user.id = doc.id
             this.setState({ user: user })
         });
-        this.setState({canAdd : false})
+        console.log(user.firstname)
         alert('Email is already have.')
     }
 
@@ -110,7 +106,7 @@ class Sign_Up extends Component {
             email: this.state.email,
             department: this.state.department,
             passwd: Base64.encode(this.state.passwd),
-            currentDate : this.state.currentDate,
+            todayS : this.state.todayS,
         }
         firestore.addUser(user, this.addSuccess, this.addReject)
     }
@@ -212,13 +208,13 @@ class Sign_Up extends Component {
 
                     </div>
                 </div>
-                <div style={{ marginLeft: '44%', paddingTop: '3%' }}>
+                <div style={{ marginLeft: '43.5%', paddingTop: '1%' }}>
                     <button style={{ width: 200, height: 50, borderRadius: '40px', fontSize: '22px', fontWeight: 'bold', color: '#000000', cursor: 'pointer', backgroundColor: '#FFB636' }}
                         onClick={this.onAdd}>
                         Sign up
                     </button>
                 </div>
-                <div style={{ marginLeft: '47%', paddingTop: '1%' }}>
+                <div style={{ marginLeft: '46.5%', paddingTop: '0.5%' }}>
                     <button style={{ width: 100, height: 40, borderRadius: '40px', fontSize: '16px', color: '#ffffff', cursor: 'pointer', backgroundColor: '#29292B' }}
                         onClick={() => { window.location.href = "/" }}>
                         Back
