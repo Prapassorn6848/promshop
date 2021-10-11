@@ -57,7 +57,7 @@ class HomeAdmin extends Component {
         return (
             <div><h1 class="topja" style={{ fontWeight: "500" }}>PROMSHOP</h1>
                 <div class="testerja">
-                    <div style={{ marginLeft: '460%', marginRight:'10%'}}>
+                    <div style={{ marginLeft: '430%', marginRight:'10%'}}>
                         <h1 style={{ fontSize: '30px', fontWeight: "600", color: "black" }}>{this.props.userList[this.props.userList.length - 1].username}</h1>
                     </div>
 

@@ -80,7 +80,7 @@ class Login extends Component {
             genPass:null,
             count:null,
             emailVar:null,
-
+            modaltoomany: false,
 
             modalChangePass: false,
             newpassword:null,
@@ -221,8 +221,8 @@ class Login extends Component {
             this.setState({count:this.state.count + 1});
             console.log(this.state.count);
 
-            if(this.state.count > 10){
-                alert("มึงเข้าเยอะไปปะ");
+            if(this.state.count > 7){
+                this.handleModalToomanyOpen();
             }else{
                 
                 firestore.getUser(this.state.email, this.getSuccess, this.getReject)
@@ -277,12 +277,13 @@ class Login extends Component {
                 console.log(this.state.countLogin)
             }
             if(this.state.countLogin > 3 && this.state.countLogin < 5){
-                alert("เปลี่ยนรหัสดิ้")  
+                // alert("เปลี่ยนรหัสดิ้")  
+                console.log("eiei")
             
             }
             if(this.state.countLogin === 5){
                 alert("โปรดเปลี่ยนรหัสผ่าน")
-                this.handleModalLockUserOpen();
+                this.handleModalToomanyOpen();
             
             }
             
@@ -349,6 +350,15 @@ class Login extends Component {
         this.setState({ modalfill: true });
     };
     ///////////////////////////////////////////////
+    handleModalToomanyClose = (e) => {
+        this.setState({ modaltoomany: false });
+    };
+
+
+    handleModalToomanyOpen = () => {
+        this.setState({ modaltoomany: true });
+    };
+    ///////////////////////////////////////////////
 
     //Captcha
 
@@ -409,7 +419,7 @@ class Login extends Component {
         this.setState({ human: false, humanKey: null })
         this.setState({ disabled: this.isDisabled() })
     }*/
-
+    
     render() {
 
         return (
@@ -617,6 +627,24 @@ class Login extends Component {
                         </div>
                     </div>
                 </div>
+
+                <div hidden={!this.state.modaltoomany}>
+                        <div className="modal-backgroundfill" >
+                            <div className="modal-cardfill">
+                                <div style={{ textAlign: 'center', justifyContent: "center", alignItems: "center" }}>
+                                    <div style={{ paddingTop: 10 }}>
+                                        <img className="picWarning" src={Warning} />
+                                    </div>
+
+                                    <a1 style={{ color: "#29292B", fontSize: "24px", fontWeight: "600" }}>Too many login attempts.</a1>
+                                    <div style={{ height: "1vh" }}></div>
+                                </div>
+                                <div style={{ textAlign: 'center', paddingTop: "10px" }}>
+                                    <ButtonTry style={{ fontSize: 20 }} onClick={this.handleModalToomanyClose}>OK</ButtonTry>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </div>
         )
     }
