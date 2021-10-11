@@ -10,7 +10,7 @@ import Countdown from 'react-countdown';
 import { AiOutlineReload } from "react-icons/ai";
 import emailjs from 'emailjs-com';
 import { Base64 } from 'js-base64';
-
+import { Success } from '../pic';
 const Font = styled.div`
   && {
     color: #000000;
@@ -18,7 +18,7 @@ const Font = styled.div`
   }
 `
 const ButtonInsert = styled.button`
-  background: #ef3f3e;
+  background: #EC4444;
   border: 2px;
   color: #ffffff;
   width: 170px;
@@ -84,8 +84,8 @@ class ForgotPass extends Component {
             pinVar:null,
             pinVar:null,
             pinMSG:null,
-            modalSendPinSuccess:false,
-            modal4:false,
+            modalSendPinSuccess: false,
+            modal4: false,
             newPass:null,
             confirmNewPass:null,
             newPassMsg: "",
@@ -254,7 +254,7 @@ class ForgotPass extends Component {
                         id="email"
                         name="email"
                         value={this.state.email}
-                        onChange={txt => this.setState({ email: txt.target.value })} style={{ fontSize: 24, width: 510 }} />
+                        onChange={txt => this.setState({ email: txt.target.value })} style={{ fontSize: 16, width: 510 }} />
                       <input type="hidden"
                         id="name"
                         name="name"
@@ -273,7 +273,7 @@ class ForgotPass extends Component {
           <div className="modal-background">
             <div className="modal-cardforget">
               <div style={{ paddingTop: 20 }}>
-                {/* <img className="picSuccess" src={Success} /> */}
+                <img className="picSuccess" src={Success} />
               </div>
               <div>
                 <Font style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: 20 }} >
@@ -281,7 +281,7 @@ class ForgotPass extends Component {
                   <p>Please check pin in your mail box.</p>
                 </Font>
               </div>
-              <div style={{ paddingLeft: 270, paddingTop: 10 }}>
+              <div style={{paddingTop: 10 }}>
                 <ButtonInsert style={{ fontSize: 20 }} onClick={this.handlemodalSendPinSuccessClose}>Insert Pin</ButtonInsert>
               </div>
             </div>
@@ -332,34 +332,34 @@ class ForgotPass extends Component {
         </div>
         <div hidden={!this.state.modal4}>
           <div className="modal-background">
-            <div className="modal-cardChangePass">
+            <div className="modal-cardChangePass2">
               <div>
-                <FontHead style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: 20 }} >Reset Password</FontHead>
+                <FontHead style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: 20, fontWeight: "bold" }} >Reset Password</FontHead>
                 <Font style={{ display: 'flex', flexDirection: 'column', paddingTop: 25, paddingLeft: 20 }} ></Font>
               </div>
               <div style={{ paddingTop: 10, paddingLeft: 20 }}>
                 <input type="hidden" style={{ fontSize: 24 }} />
               </div>
               <div>
-                <Font style={{ display: 'flex', flexDirection: 'column', paddingTop: 10, paddingLeft: 30 }} >New Password</Font>
+                <Font style={{ display: 'flex', flexDirection: 'column', paddingTop: 10, paddingLeft: 10 }} >New Password</Font>
               </div>
-              <div style={{ paddingTop: 10, paddingLeft: 30 }}>
+              <div style={{ paddingTop: 10, paddingLeft: 10 }}>
                 <input type="password" style={{ fontSize: 24 }} onChange={txt => this.setState({ newPass: txt.target.value })} />
               </div>
               <div>
-                <Font style={{ display: 'flex', flexDirection: 'column', paddingTop: 20, paddingLeft: 30 }} >Confirm Password</Font>
+                <Font style={{ display: 'flex', flexDirection: 'column', paddingTop: 20, paddingLeft: 10 }} >Confirm Password</Font>
               </div>
-              <div style={{ paddingTop: 10, paddingLeft: 30 }}>
+              <div style={{ paddingTop: 10, paddingLeft: 10 }}>
                 <input type="password" style={{ fontSize: 24 }} onChange={txt => this.setState({ confirmNewPass: txt.target.value })} />
               </div>
               <div style={{ paddingLeft: 20, color: "red" }}>
                 {this.state.newPassMsg}
               </div>
               <div style={{ display: 'flex', flexDirection: 'row' }} >
-                <div style={{ paddingLeft: 10, paddingTop: 100 }}>
+                <div style={{ paddingLeft: 20, paddingTop: 100 }}>
                   <ButtonCancel style={{ fontSize: 20 }} onClick={this.handleModal4Close}>Cancel</ButtonCancel>
                 </div>
-                <div style={{ paddingLeft: 50, paddingTop: 100 }}>
+                <div style={{ paddingLeft: 190, paddingTop: 100 }}>
                   <ButtonOK style={{ fontSize: 20 }} onClick={this.onOK}>OK</ButtonOK>
                 </div>
               </div>
