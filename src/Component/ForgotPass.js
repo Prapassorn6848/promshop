@@ -163,6 +163,7 @@ class ForgotPass extends Component {
 
     reject = (error) => {
        console.log(error)
+       alert("เดี๋ยวนะอิสัส")
     }
           
     handleSubmit = () => {
@@ -288,7 +289,6 @@ class ForgotPass extends Component {
           </div>
         </div>
                 
-
         <div hidden={!this.state.modal3}>
           <div className="modal-background">
             <div className="modal-cardforget" >
