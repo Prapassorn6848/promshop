@@ -11,6 +11,7 @@ import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, val
 import ReCAPTCHA from "react-google-recaptcha";
 import firestore from '../firebase/firestore'
 import { Alert } from 'bootstrap';
+import { Base64 } from 'js-base64';
 
 const TEST_SITE_KEY = "6Le9Zb8cAAAAAP1uib6Occmbc5Kc7xX1PFgzklYX";
 const DELAY = 1500;
@@ -88,8 +89,8 @@ class Login extends Component {
         });
         /*console.log(user.pass)
         console.log(this.state.user.pass)*/
-        if (user.pass === this.state.pass) {
-            history.push("/home ")
+        if (Base64.decode(user.pass) === this.state.pass) {
+            history.push("/home")
             /*window.location.href="/home"*/
         } else {
             alert("Email or Password is incorrect")
