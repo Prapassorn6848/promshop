@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './Style.css';
 import { DataGrid } from '@mui/x-data-grid';
 
+import {FiLogOut} from "react-icons/fi";
 //const db = firebase.firestore();
 console.log("fern");
 
@@ -50,11 +51,12 @@ class View extends Component {
 
     render() {
         return (
+          
             <div id="container">
                 <div class = "view1">
                 <div style={{ width: '100%' ,height:'5vh' , backgroundColor:'#29292B'}} ></div>
                 <div class='view' >
-                    <h1 style={{color:'#FFB636'}}> PROMSHOP</h1> 
+                    <h1 style={{color:'#FFB636'}}>View stock</h1> 
                 </div>
                 <div style={{ width: '100%' ,height:'50vh'}}>
                 <DataGrid className='cssStyle'
@@ -68,6 +70,7 @@ class View extends Component {
                 <div style={{ width: '100%' ,height:'10vh' , backgroundColor:'#FFB636'}} ></div>
                 </div>
                 </div>
+              
                 
                 
             

@@ -47,6 +47,49 @@ class Firestore {
                 reject(error);
             });
     };
+    updateUser = (user, success, reject) => {
+        firebase
+            .firestore()
+            .collection('User')
+            .doc(user.email)
+            .update({
+                passwd: user.passwd,
+                todayS: user.todayS,
+            })
+            .then(function () {
+                success(null);
+            })
+            .catch(function (error) {
+                reject(error);
+            });
+    };
+    getAllProduct(success, reject) {
+        firebase
+            .firestore()
+            .collection('Products')
+            .orderBy('productID')
+            .get()
+            .then(function (querySnapshot) {
+                success(querySnapshot);
+            })
+            .catch(function (error) {
+                reject(error);
+            });
+    }
+    deleteProduct = (id, success, reject) => {
+        firebase
+            .firestore()
+            .collection('Products')
+            .doc(id)
+            .delete()
+            .then(function () {
+                success(null);
+            })
+            .catch(function (error) {
+                reject(error);
+            });
+    };
+    
 }
 const firestore = new Firestore();
 export default firestore;
