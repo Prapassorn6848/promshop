@@ -21,7 +21,7 @@ const ButtonOK = styled.button`
   padding: 0.5em 1.75em;
 `
 const ButtonResend = styled.button`
-  background: #868181;
+  background: #ffffff;
   border-radius: 10px;
   border: 2px;
   color: #ffffff;
@@ -32,7 +32,8 @@ const ButtonResend = styled.button`
   const FontTopic = styled.div`
   && {
     color: #000000;
-    font-size: 30px;
+    font-size: 35px;
+    font-weight: 600;
   }
 `
 
@@ -107,8 +108,8 @@ class ForgotPass extends Component {
           <div className="modal-background">
             <div className="modal-cardforget" >
               <div>
-                <FontTopic style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: 20 }} >
-                  Enter Your PIN
+                <FontTopic style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: 25 }} >
+                  Enter your PIN
                 </FontTopic>
               </div>
               <div style={{ paddingLeft: 100, color: "red" }}>{this.state.pinMSG}</div>
@@ -125,19 +126,19 @@ class ForgotPass extends Component {
                   autoSelect={true}
                   regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
                   onChange={value => this.setState({ pinVar: value })}
-                  style={{ paddingLeft: 100, paddingTop: 40 }}
+                  style={{ paddingLeft: 90, paddingTop: 30 }}
                 />
-                <div style = {{paddingTop: 45}}>
-                  <ButtonResend onClick={this.onResend}><AiOutlineReload size = {20}/> </ButtonResend>
+                <div style = {{paddingTop: 30}}>
+                  <ButtonResend onClick={this.onResend}><AiOutlineReload size = {20} style ={{color:'black'}}/> </ButtonResend>
                 </div>
               </div>
-              <div style={{ paddingTop: 15, paddingLeft: 8 }}>
+              <div style={{ paddingTop: 15, paddingLeft: 5, color:'black'}}>
                 <Countdown date={Date.now() + 10000 * 6 * 3}>
                   <Completionist />
                 </Countdown>
               </div>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <div style={{ paddingTop: 45 }}>
+                <div style={{ paddingTop: 40 }}>
                   <ButtonOK style={{ fontSize: 17 }} onClick={this.onCheckP}>Submit</ButtonOK>
                 </div>
               </div>
