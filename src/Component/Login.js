@@ -16,6 +16,9 @@ import { Base64 } from 'js-base64';
 import emailjs from 'emailjs-com';
 
 
+import { connect } from 'react-redux';
+import { addUser , editUser} from '../actions/userAction';
+import { addProduct , deleteProduct} from '../actions/productAction';
 
 const TEST_SITE_KEY = "6Le9Zb8cAAAAAP1uib6Occmbc5Kc7xX1PFgzklYX";
 const DELAY = 1500;
@@ -84,6 +87,7 @@ class Login extends Component {
             modalLockUser:false,
             todayL:new Date(),
         };
+
         this._reCaptchaRef = React.createRef();
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -173,6 +177,7 @@ class Login extends Component {
     
 
     onLogin = () => {
+        console.log(this.props.userList);
         if (this.state.email === null || this.state.email === "" || this.state.pass === null || this.state.pass === "") {
             console.log("Empty input!!")
             this.handleModalfillOpen()
@@ -204,6 +209,7 @@ class Login extends Component {
             user.id = doc.id
             this.setState({ user: user })
         });
+        
         /*console.log(user.pass)
         console.log(this.state.user.pass)*/
         let timeData = new Date(user.todayS.toMillis())
@@ -216,6 +222,9 @@ class Login extends Component {
             if(this.state.isVerified){
                 if(todayL.getTime() - timeData.getTime() >= 7776000000){
                     this.setState({modalChangePass:true})
+                    this.props.addUser(user)
+                    console.log(this.props.userList);
+                    setTimeout(() => {window.location.href="/homeAdmin"}, 2000);
                 }
                 else{
                     window.location.href="/homeAdmin"                    
@@ -381,7 +390,9 @@ class Login extends Component {
                             <div style={{ height: "5vh" }}></div>
                         </div>
                         <div style={{ alignItems: "center" }}>
-                           
+                            <div style={{ marginLeft: '17%' }}>
+                                <a1 style={{ color: "#FFB636", fontSize: "20px" }} type="text"> <FaUser />  Username or E-mail</a1>
+                            </div>
 
                             <div style={{ textAlign: 'center' }}>
                                 <input style={{ marginTop: '10px', width: 500, height: 40, color: "black" }} type="text" name="email"
@@ -573,5 +584,20 @@ class Login extends Component {
     }
 }
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addUser: (user) => dispatch(addUser(user)),
+        addProduct: (product) => dispatch(addProduct(product)),
+        editUser: (user) => dispatch(editUser(user)),
+        deleteProduct:(product) => dispatch(deleteProduct(product))
+    };
+};
 
-export default Login;
+const mapStateToProps = (state) => {
+    return {
+        userList: state.userReducer.userList,
+        products: state.productReducer.products,
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

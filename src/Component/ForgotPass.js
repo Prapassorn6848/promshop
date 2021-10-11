@@ -8,6 +8,9 @@ import './Modal.css';
 import PinInput from "react-pin-input";
 import Countdown from 'react-countdown';
 import { AiOutlineReload } from "react-icons/ai";
+import { connect } from 'react-redux';
+import { addUser , editUser} from '../actions/userAction';
+import { addProduct , deleteProduct} from '../actions/productAction';
 import emailjs from 'emailjs-com';
 import { Base64 } from 'js-base64';
 
@@ -376,4 +379,21 @@ class ForgotPass extends Component {
 }
 
 
-export default ForgotPass;
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addUser: (user) => dispatch(addUser(user)),
+        addProduct: (product) => dispatch(addProduct(product)),
+        editUser: (user) => dispatch(editUser(user)),
+        deleteProduct:(product) => dispatch(deleteProduct(product))
+    };
+};
+
+const mapStateToProps = (state) => {
+    return {
+        userList: state.userReducer.userList,
+        products: state.productReducer.products,
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ForgotPass);

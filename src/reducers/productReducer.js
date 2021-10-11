@@ -16,7 +16,7 @@ const productReducer = (state = initialState,action) => {
                 ...state,
                 products:state.products.filter((item)=>item.id != action.id)
             }
-        default : return{state}
+        default : return state
     }
 }
 export default productReducer;
