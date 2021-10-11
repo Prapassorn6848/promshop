@@ -13,6 +13,9 @@ import {
     Link
   } from "react-router-dom";
 import './HomeS.css';
+import { connect } from 'react-redux';
+import { addUser , editUser} from '../actions/userAction';
+import { addProduct , deleteProduct} from '../actions/productAction';
 
 const ButtonTry = styled.button`
   background: #FFB636;
@@ -111,4 +114,22 @@ class HomeUser extends Component {
 }
 
 
-export default HomeUser;
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addUser: (user) => dispatch(addUser(user)),
+        addProduct: (product) => dispatch(addProduct(product)),
+        editUser: (user) => dispatch(editUser(user)),
+        deleteProduct:(product) => dispatch(deleteProduct(product))
+    };
+};
+
+const mapStateToProps = (state) => {
+    return {
+        userList: state.userReducer.userList,
+        products: state.productReducer.products,
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeUser);
+

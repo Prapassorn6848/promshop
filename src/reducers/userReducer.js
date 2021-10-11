@@ -1,7 +1,7 @@
 import { ADD_USER,EDIT_USER } from "../actions/types";
 
 const initialState = {
-    user:[]
+    userList:[],
 };
 
 const userReducer = (state = initialState,action) => {
@@ -9,12 +9,12 @@ const userReducer = (state = initialState,action) => {
         case ADD_USER : 
             return{
                 ...state,
-                user:state.user.concat(action.user)
+                userList:state.userList.concat(action.user)
             }
         case EDIT_USER :
             return{
                 ...state,
-                user:state.user.map((item)=>
+                userList:state.userList.map((item)=>
                     item.id === action.user.id
                     ? {
                         ...item,
@@ -24,7 +24,8 @@ const userReducer = (state = initialState,action) => {
                     :item
                 )
             }
-        default : return{state}
+        default : 
+            return state
     }
 }
 export default userReducer;

@@ -8,7 +8,9 @@ import {Warning } from '../pic';
 import styled, { css } from 'styled-components'
 import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 import './Style.css';
-
+import { connect } from 'react-redux';
+import { addUser , editUser} from '../actions/userAction';
+import { addProduct , deleteProduct} from '../actions/productAction';
 
 const options = [
     {
@@ -244,4 +246,21 @@ class Sign_Up extends Component {
 }
 
 
-export default Sign_Up;
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addUser: (user) => dispatch(addUser(user)),
+        addProduct: (product) => dispatch(addProduct(product)),
+        editUser: (user) => dispatch(editUser(user)),
+        deleteProduct:(product) => dispatch(deleteProduct(product))
+    };
+};
+
+const mapStateToProps = (state) => {
+    return {
+        userList: state.userReducer.userList,
+        products: state.productReducer.products,
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sign_Up);
