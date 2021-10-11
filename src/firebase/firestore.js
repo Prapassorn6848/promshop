@@ -67,8 +67,7 @@ class Firestore {
     getAllProduct(success, reject) {
         firebase
             .firestore()
-            .collection('Products')
-            .orderBy('productID')
+            .collection('product')
             .get()
             .then(function (querySnapshot) {
                 success(querySnapshot);
