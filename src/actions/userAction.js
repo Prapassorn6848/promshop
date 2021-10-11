@@ -1,4 +1,3 @@
-import userEvent from "@testing-library/user-event";
 import { EDIT_USER,ADD_USER} from "./types";
 
 export const addUser = (user) =>({

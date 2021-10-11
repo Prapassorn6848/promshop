@@ -195,6 +195,7 @@ class Login extends Component {
     
 
     onLogin = () => {
+        console.log(this.props.productsList);
         console.log(this.props.userList);
         if (this.state.email === null || this.state.email === "" || this.state.pass === null || this.state.pass === "") {
             console.log("Empty input!!")
@@ -242,7 +243,8 @@ class Login extends Component {
                     this.setState({modalChangePass:true})
                     this.props.addUser(user)
                     console.log(this.props.userList);
-                    setTimeout(() => {window.location.href="/homeAdmin"}, 2000);
+                    /*setTimeout(() => {window.location.href="/homeAdmin"}, 2000);*/
+                    
                 }
                 else{
                     this.props.addUser(user)
@@ -609,14 +611,14 @@ const mapDispatchToProps = (dispatch) => {
         addUser: (user) => dispatch(addUser(user)),
         addProduct: (product) => dispatch(addProduct(product)),
         editUser: (user) => dispatch(editUser(user)),
-        deleteProduct:(product) => dispatch(deleteProduct(product))
+        deleteProduct:(id) => dispatch(deleteProduct(id))
     };
 };
 
 const mapStateToProps = (state) => {
     return {
         userList: state.userReducer.userList,
-        products: state.productReducer.products,
+        productsList: state.productReducer.productsList,
     };
 };
 
