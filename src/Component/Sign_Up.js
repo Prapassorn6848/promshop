@@ -112,7 +112,7 @@ class Sign_Up extends Component {
 
     addSuccess = (doc) => {
         console.log(doc.id)
-        history.push('/')
+        window.location.href="/"
     }
 
     addReject = (error) => {
