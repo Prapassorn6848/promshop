@@ -3,7 +3,7 @@ import './SignStyle.css'
 import history from '../history'
 import firestore from '../firebase/firestore'
 import { Base64 } from 'js-base64';
-
+import { render } from 'react-dom';
 
 const options = [
     {
@@ -22,6 +22,10 @@ const options = [
 
 class Sign_Up extends Component {
     constructor(props) {
+        
+        var today = new Date(),
+        date = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate();
+
         super(props);
         this.state = {
             firstname:'',
@@ -31,7 +35,8 @@ class Sign_Up extends Component {
             passwd:'',
             department:'',
             canAdd: true,
-
+            /*today: new Date()*/
+            currentDate: date
         };
     }
 
@@ -56,6 +61,7 @@ class Sign_Up extends Component {
                     email: this.state.email,
                     department: this.state.department,
                     passwd: Base64.encode(this.state.passwd),
+                    currentDate : this.state.currentDate,
                 }
                 firestore.addUser(user, this.addSuccess, this.addReject)
             }
@@ -93,10 +99,6 @@ class Sign_Up extends Component {
     addReject = (error) => {
         console.log(error)
     }
-
-
-
-    
 
     render() {
         return (
