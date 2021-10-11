@@ -55,7 +55,7 @@ class Sign_Up extends Component {
                     username: this.state.username,
                     email: this.state.email,
                     department: this.state.department,
-                    passwd: Base64.encode(this.state.email),
+                    passwd: Base64.encode(this.state.passwd),
                 }
                 firestore.addUser(user, this.addSuccess, this.addReject)
             }
