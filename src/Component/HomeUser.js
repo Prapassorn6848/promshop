@@ -33,6 +33,7 @@ class HomeUser extends Component {
         super(props);
         this.state = {
             modalChangePass: false,
+            user: this.props.userList[this.props.userList.length - 1]
         };
     }
 
@@ -54,12 +55,12 @@ class HomeUser extends Component {
         return (
             <div><h1 class="topja">PromSHOP</h1>
             <div class="testerja">
-                 <h1 style={{fontSize:'30px'}}>Mariarty</h1>
+                 <h1 style={{fontSize:'30px'}}>{this.props.userList[this.props.userList.length - 1].username}</h1>
                  <div style={{marginLeft:'10%',marginTop:'3%'}}>
                      <FiLogOut size={35} onClick={()=>window.location.href="/"}/>           
                 </div>
             </div>    
-                <h4 style={{fontSize:'16px',marginLeft:'93%',color:'white',marginTop:'-1.5%' }}>Admin</h4>
+                <h4 style={{fontSize:'16px',marginLeft:'93%',color:'white',marginTop:'-1.5%' }}>{this.props.userList[this.props.userList.length - 1].department}</h4>
                 <div class="text-box">
                 <a href="#"  class="btn btn btn-white btn-animate " onClick={() => window.location.href="/view"}>Stock</a>
                 </div>
@@ -120,7 +121,7 @@ const mapDispatchToProps = (dispatch) => {
         addUser: (user) => dispatch(addUser(user)),
         addProduct: (product) => dispatch(addProduct(product)),
         editUser: (user) => dispatch(editUser(user)),
-        deleteProduct:(product) => dispatch(deleteProduct(product))
+        deleteProduct: (product) => dispatch(deleteProduct(product))
     };
 };
 
