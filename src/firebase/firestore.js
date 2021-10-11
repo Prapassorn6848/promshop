@@ -47,7 +47,7 @@ class Firestore {
                 reject(error);
             });
     };
-    updateUserByID = (user, success, reject) => {
+    updateUser = (user, success, reject) => {
         firebase
             .firestore()
             .collection('User')
