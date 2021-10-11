@@ -35,6 +35,18 @@ class Firestore {
                 reject(err);
             });
     }
+    addUser = (user, success, reject) => {
+        firebase
+            .firestore()
+            .collection('User')
+            .add(user)
+            .then(function (docRef) {
+                success(docRef);
+            })
+            .catch(function (error) {
+                reject(error);
+            });
+    };
 }
 const firestore = new Firestore();
 export default firestore;

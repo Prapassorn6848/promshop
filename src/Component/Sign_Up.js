@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import './SignStyle.css'
 import history from '../history'
+import firestore from '../firebase/firestore'
+import { Base64 } from 'js-base64';
 
 
 const options = [
@@ -28,14 +30,72 @@ class Sign_Up extends Component {
             email:'',
             passwd:'',
             department:'',
+            canAdd: true,
 
         };
     }
 
-    _onChange(value) {
-        //console.log(value) - just to see what we recive from <Select />
-        this.setState({position: value});
-      }
+    onAdd = () => {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        
+        if ((this.state.firstname !== '') && (this.state.lastname !== '') && (this.state.username !== '') && (this.state.email !== '') && (this.state.passwd !== '') && (this.state.department !== '') ) {
+            
+            firestore.getUser(this.state.email, this.getSuccess, this.getReject)
+            
+            if(re.test(this.state.email)===false){
+                alert("Invalid Email")
+            }
+            if (this.state.canAdd === false) {
+                alert('Email is already have.')
+            } else {
+                //firebase
+                const user = {
+                    firstname: this.state.firstname,
+                    lastname: this.state.lastname,
+                    username: this.state.username,
+                    email: this.state.email,
+                    department: this.state.department,
+                    passwd: Base64.encode(this.state.email),
+                }
+                firestore.addUser(user, this.addSuccess, this.addReject)
+            }
+
+        }else {
+            alert('Please complete all infomations.')
+        }
+
+    }
+
+    getSuccess = (querySnapshot) => {
+        let user;
+        querySnapshot.forEach(doc => {
+            user = doc.data()
+            user.id = doc.id
+            this.setState({ user: user })
+        });
+        /*console.log(user.pass)
+        console.log(this.state.user.pass)*/
+        this.setState({canAdd : false})
+        /*console.log(this.state.account)*/
+    }
+
+    getReject = (error) => {
+        console.log(error)
+        this.setState({canAdd : true})
+        // alert("Email or Password is incorrect")
+    }
+
+    addSuccess = (doc) => {
+        console.log(doc.id)
+        history.push('/')
+    }
+
+    addReject = (error) => {
+        console.log(error)
+    }
+
+
+
     
 
     render() {
@@ -113,7 +173,7 @@ class Sign_Up extends Component {
                 </div>
                 <div style={{marginLeft:'45%',paddingTop:'1%'}}>
                     <button style={{ width: 200,height:50,borderRadius:'40px',fontSize:'20px',fontWeight:'bold',fontFamily:"initial",color:'#000000',cursor: 'pointer',backgroundColor:'#FFB636'}}
-                    onClick={() => console.log(this.state.department)}>
+                    onClick={this.onAdd}>
                         Sign up
                     </button>
                 </div>
