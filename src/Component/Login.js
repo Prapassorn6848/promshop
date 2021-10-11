@@ -70,6 +70,7 @@ class Login extends Component {
             captcha: null,
             isVerified: false,
             canLogin:false,
+            modalEditpw:false,
         };
         this._reCaptchaRef = React.createRef();
     }
@@ -97,9 +98,17 @@ class Login extends Component {
         });
         /*console.log(user.pass)
         console.log(this.state.user.pass)*/
+        let timeData = new Date(user)
         if (Base64.decode(user.passwd) === this.state.pass) {
             if(this.state.isVerified){
-                window.location.href="/homeAdmin"
+                if(true){
+                    window.location.href="/homeAdmin"
+                }
+                else{
+                    this.state.modalEditpw=true
+                }
+
+                
             }
             else{
                 alert("Please verify if you are human!!");

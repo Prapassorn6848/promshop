@@ -39,9 +39,6 @@ const ButtonTry = styled.button`
 class Sign_Up extends Component {
     constructor(props) {
         
-        var today = new Date(),
-        date = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate();
-
         super(props);
         this.state = {
             firstname:'',
@@ -51,8 +48,7 @@ class Sign_Up extends Component {
             passwd:'',
             department:'',
             canAdd: true,
-            /*today: new Date()*/
-            currentDate: date,
+            todayS: new Date(),
             modalfill: false,
 
         };
@@ -70,7 +66,7 @@ class Sign_Up extends Component {
     ///////////////////////////////////////////////
 
     onAdd = () => {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        /*const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         
         if ((this.state.firstname !== '') && (this.state.lastname !== '') && (this.state.username !== '') && (this.state.email !== '') && (this.state.passwd !== '') && (this.state.department !== '') ) {
             
@@ -98,8 +94,8 @@ class Sign_Up extends Component {
         }else {
             // alert('Please complete all infomations.')
             this.handleModalfillOpen()
-        }
-
+        }*/
+        console.log(this.state.todayS)
     }
 
     getSuccess = (querySnapshot) => {
