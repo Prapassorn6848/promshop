@@ -649,14 +649,14 @@ class Login extends Component {
                                     <a1 style={{color:"",fontSize:"20px"}} type="text">New Password</a1>
                                 </div>
                                 <div style={{textAlign:'center'}}>
-                                    <input style={{ width: 400,height:40,color:"black"}} type="text" name="NewPass"
+                                    <input style={{ width: 400,height:40,color:"black"}} type="password" name="NewPass"
                                     onChange = {txt => this.setState({newpassword: txt.target.value})}/>
                                 </div>
                                 <div style={{textAlign:'start',marginLeft:"14%",marginTop:'10px'}}>
                                     <a1 style={{color:"",fontSize:"20px"}} type="text">Confirm New Password</a1>
                                 </div>
                                 <div style={{textAlign:'center'}}>
-                                    <input style={{ width: 400,height:40,color:"black"}} type="text" name="ConfirmNewPass" 
+                                    <input style={{ width: 400,height:40,color:"black"}} type="password" name="ConfirmNewPass" 
                                     onChange = {txt => this.setState({conpassword : txt.target.value})}
                                     />
                                 </div>

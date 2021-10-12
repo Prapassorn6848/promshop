@@ -78,11 +78,23 @@ class Sign_Up extends Component {
         console.log("You Sign up");
         console.log(this.state.xScores);
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if(this.state.xScores==0){
+            console.log("0");
+            this.setState({weak:true})
+            console.log("weak"+this.state.weak);
+            alert("Please change Your Password.It is so weak.")
+            this.setState({passwd:""})
+            this.setState({conpasswd:''})
+
+            
+        }
         if(this.state.xScores==1){
             console.log("1");
             this.setState({weak:true})
             console.log("weak"+this.state.weak);
             alert("Please change Your Password.It is so weak.")
+            this.setState({passwd:""})
+            this.setState({conpasswd:''})
         }
         if(this.state.xScores==2){
             console.log("2");
@@ -90,6 +102,8 @@ class Sign_Up extends Component {
             console.log("weak"+this.state.weak);
             console.log(this.state.weak);
             alert("Please change Your Password.It is so weak.")
+            this.setState({passwd:""})
+            this.setState({conpasswd:''})
 
         }if(this.state.xScores==3){
             console.log("3");
@@ -116,6 +130,8 @@ class Sign_Up extends Component {
                             firestore.getUser(this.state.email, this.getSuccess, this.getReject)
                         }else{
                             alert("Confirm Password Not Match")
+                            this.setState({passwd:""})
+                            this.setState({conpasswd:''})
                         }
                     }
             
@@ -249,7 +265,7 @@ class Sign_Up extends Component {
                         </div>
                     </div>
                     <div style={{ textAlign: 'left', marginLeft: '35%', }}>
-                        <input style={{ marginTop: '10px', width: 460, height: 30, color: "black" }} type="password" name="password" 
+                        <input style={{ marginTop: '10px', width: 460, height: 30, color: "black" }} type="password" name="password" value ={this.state.conpasswd}
                             onChange={txt => this.setState({ conpasswd: txt.target.value })}
                         />
                     </div>
