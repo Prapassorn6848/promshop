@@ -117,6 +117,14 @@ class Edit extends Component {
         console.log(error)
     }
 
+    onBack =()=>{
+        if(this.props.userList[this.props.userList.length - 1].department === 'Officer'){
+            window.location.href="/homeUser"
+        }else{
+            window.location.href="/homeAdmin"
+        }
+    }
+
     
 
     
@@ -139,11 +147,13 @@ class Edit extends Component {
                             rowsPerPageOptions={[1]}
 
                         />
-
+                        <div style={{display: 'flex', flexDirection: 'row',}}>
+                            <Button class="button1" style={{marginLeft:'950px',backgroundColor:'white'}} onClick={this.onDelete}>Confirm</Button>
+                            <Button  class="button1" onClick={this.onBack}>Back</Button>
+                        </div>
                     </div>
                     <div class='view' ></div>
                     <div style={{ width: '100%', height: '5vh', backgroundColor: '#FFB636' }} >
-                        <Button style={{backgroundColor:'white'}} onClick={this.onDelete}>Confirm</Button>
                     </div>
 
                 </div>

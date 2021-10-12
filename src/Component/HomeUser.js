@@ -68,9 +68,9 @@ class HomeUser extends Component {
                 <a href="#"  class="btn btn btn-white btn-animate " onClick={() => window.location.href="/view"}>Stock</a>
                 </div>
 
-                <div class="text-box1">
+                {/* <div class="text-box1">
                 <a href="/History" class="btn btn-white btn-animate " onClick={() => window.location.href="/history"}>History</a>
-                </div>
+                </div> */}
 
                 <div hidden={!this.state.modalChangePass}>
                     <div className="modal-backgroundChangePass">

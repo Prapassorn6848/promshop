@@ -61,6 +61,14 @@ class View extends Component {
     console.log(error)
   }
 
+  onBack = () => {
+    if (this.props.userList[this.props.userList.length - 1].department === 'Officer') {
+      window.location.href = "/homeUser"
+    } else {
+      window.location.href = "/homeAdmin"
+    }
+  }
+
   render() {
     return (
 
@@ -77,6 +85,9 @@ class View extends Component {
               pageSize={5}
               rowsPerPageOptions={[1]}
             />
+            <div style={{ display: 'flex', flexDirection: 'row', }}>
+              <Button class="button1" style={{ marginLeft: '1200px' }} onClick={this.onBack}>Back</Button>
+            </div>
           </div>
           <div class='view' ></div>
           <div style={{ width: '100%', height: '10vh', backgroundColor: '#FFB636' }} >
