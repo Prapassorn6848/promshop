@@ -55,6 +55,7 @@ class Sign_Up extends Component {
             modalfill: false,
             weak:true,
             xScores:0,
+            conpasswd:'',
         };
     }
 
@@ -111,8 +112,11 @@ class Sign_Up extends Component {
                     if (validateCaptcha(user_captcha) == true ) {
                         loadCaptchaEnginge(6);
                         document.getElementById('user_captcha_input').value = "";
-                        firestore.getUser(this.state.email, this.getSuccess, this.getReject)
-                        console.log("create success!!!!!");
+                        if(this.state.passwd === this.state.conpasswd){
+                            firestore.getUser(this.state.email, this.getSuccess, this.getReject)
+                        }else{
+                            alert("Confirm Password Not Match")
+                        }
                     }
             
                     else {
@@ -121,6 +125,7 @@ class Sign_Up extends Component {
                     }
                     
                 }
+                
                 
             }
             
@@ -218,7 +223,7 @@ class Sign_Up extends Component {
                         </div>
                     </div>
                     <div style={{ textAlign: 'left', marginLeft: '35%' }}>
-                        <input style={{ marginTop: '10px', width: 460, height: 30, color: "black" }} type="text" value ={passwd} name="password"
+                        <input style={{ marginTop: '10px', width: 460, height: 30, color: "black" }} type="password" value ={passwd} name="password"
                             onChange={txt => this.setState({ passwd: txt.target.value })} />
                             <PasswordStrengthBar style={{width:459}}
                                     password={passwd}
@@ -232,9 +237,7 @@ class Sign_Up extends Component {
                                         this.setState({weak:false})
                                     }
                                     console.log("from score(Default)",score)
-                                    console.log("from xScore",xScore);
-                                
-                                    
+                                    console.log("from xScore",xScore); 
                                     }}
                                 />
                     </div>
@@ -246,7 +249,9 @@ class Sign_Up extends Component {
                         </div>
                     </div>
                     <div style={{ textAlign: 'left', marginLeft: '35%', }}>
-                        <input style={{ marginTop: '10px', width: 460, height: 30, color: "black" }} type="text" name="password" />
+                        <input style={{ marginTop: '10px', width: 460, height: 30, color: "black" }} type="password" name="password" 
+                            onChange={txt => this.setState({ conpasswd: txt.target.value })}
+                        />
                     </div>
                 </div>
                 <div style={{ alignItems: "center" }}>
