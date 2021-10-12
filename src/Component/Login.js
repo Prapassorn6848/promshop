@@ -203,7 +203,7 @@ class Login extends Component {
           firestore.updateUser(user, this.upSuccess, this.upReject)
     }
     upSuccess = () => {
-        this.handleModalToomanyLockClose();
+        this.handleModalToomanyLockClose(); 
     }
     
     upReject = (error) => {
@@ -217,6 +217,7 @@ class Login extends Component {
         console.log(this.props.productsList);
         console.log(this.props.userList);
         if (this.state.email === null || this.state.email === "" || this.state.pass === null || this.state.pass === "") {
+            this.setState({pass :""})
             console.log("Empty input!!")
             this.handleModalfillOpen()
         }
@@ -315,6 +316,7 @@ class Login extends Component {
     //////////////////////////////////////////////
     handleModalPasswrongClose = (e) => {
         this.setState({ modalPasswrong: false });
+        this.setState({pass:""})
     };
 
 
@@ -356,11 +358,10 @@ class Login extends Component {
     };
     ///////////////////////////////////////////////
     handleModalToomanyClose = (e) => {
-        // setTimeout(() => {
-        //     this.setState({isLoock1:true})
-        // }, 3000);
+        setTimeout(() => {
+            this.setState({isLoock1:true})
+        }, 60000);
         this.setState({ modaltoomany: false });
-        
     };
 
 
@@ -373,6 +374,8 @@ class Login extends Component {
     ///////////////////////////////////////////////
     handleModalToomanyLockClose = (e) => {
         this.setState({ modaltoomanyLock: false });
+        this.setState({pass:""})
+        this.setState({email:""})
     };
 
 
@@ -382,6 +385,7 @@ class Login extends Component {
             this.setState({isLoock:false})
         }, 60000);
     };
+
     ///////////////////////////////////////////////
     
     settime=()=>{
@@ -391,7 +395,8 @@ class Login extends Component {
         setTimeout(() => {
             this.setState({isLoock1 : false})
             this.handleModalToomanyClose();
-        }, 30000);
+            this.setState({pass:""})
+        }, 60000);
     }
 
     //Captcha
@@ -476,6 +481,7 @@ class Login extends Component {
 
                             <div style={{ textAlign: 'center' }}>
                                 <input style={{ marginTop: '10px', width: 500, height: 40, color: "black" }} type="text" name="email"
+                                value={this.state.email}
                                     onChange={txt => this.setState({ email: txt.target.value,
                                         count:0 })} />
                             </div>
@@ -485,6 +491,7 @@ class Login extends Component {
                             </div>
                             <div style={{ textAlign: 'center' }} >
                                 <input style={{ marginTop: '10px', width: 500, height: 40, color: "black" }} type="password" name="email"
+                                 value={this.state.pass}
                                     onChange={txt => this.setState({ pass: txt.target.value })} />
                             </div>
                         </div>
@@ -649,7 +656,7 @@ class Login extends Component {
                                     <a1 style={{color:"",fontSize:"20px"}} type="text">Confirm New Password</a1>
                                 </div>
                                 <div style={{textAlign:'center'}}>
-                                    <input style={{ width: 400,height:40,color:"black"}} type="text" name="ConfirmNewPass"
+                                    <input style={{ width: 400,height:40,color:"black"}} type="text" name="ConfirmNewPass" 
                                     onChange = {txt => this.setState({conpassword : txt.target.value})}
                                     />
                                 </div>
