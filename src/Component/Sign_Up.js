@@ -235,7 +235,8 @@ class Sign_Up extends Component {
                 <div style={{ alignItems: "center" }}>
                     <div style={{ marginLeft: '35%', paddingTop: '0.5%' }}>
                         <div>
-                            <a1 style={{ color: "#FFB636", fontSize: "16px" }} type="text">Password</a1>
+                            <a1 style={{ color: "#FFB636", fontSize: "16px" }} type="text">Password </a1>
+                            <a1 style={{color:'red',fontSize: "10px",marginTop:"2px" }}> **Password Must Have Number,Upper and Lower Character,Symbol</a1>
                         </div>
                     </div>
                     <div style={{ textAlign: 'left', marginLeft: '35%' }}>
