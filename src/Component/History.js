@@ -17,12 +17,13 @@ const columns = [
       valueGetter: (params) =>
         `${params.getValue(params.id, 'firstName') || ''} ${
           params.getValue(params.id, 'lastName') || ''
-        }`,width: 440,
+        }`,width: 340,
     },
-    { field: 'department',headerName: 'Department',width: 240,},
-    { field: 'event',headerName: 'Event',width: 180,},
-    { field: 'date',headerName: 'Date',width: 250,},
-    { field: 'time',headerName: 'Time',width: 250,},
+    { field: 'department',headerName: 'Department',width: 190,},
+    { field: 'event',headerName: 'Event',width: 150,},
+    { field: 'date',headerName: 'Date',width: 170,},
+    { field: 'time',headerName: 'Time',width: 170,},
+    { field: 'description_his',headerName: 'Description',width: 340,},
   ];
 
   
