@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { addUser , editUser} from '../actions/userAction';
 import { addProduct , deleteProduct} from '../actions/productAction';
 import PasswordStrengthBar from 'react-password-strength-bar';
+import { TimerSharp } from '@material-ui/icons';
 
 const options = [
     {
@@ -52,9 +53,9 @@ class Sign_Up extends Component {
             department:'',
             todayS: new Date(),
             modalfill: false,
+            weak:true,
+            xScores:0,
             conpasswd:'',
-            
-
         };
     }
 
@@ -73,27 +74,59 @@ class Sign_Up extends Component {
     };
     
     onAdd = (xScore) => {
+        let user_captcha = document.getElementById('user_captcha_input').value;
+        console.log("You Sign up");
+        console.log(this.state.xScores);
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if(xScore==1){
-            alert("1");
+        if(this.state.xScores==1){
+            console.log("1");
+            this.setState({weak:true})
+            console.log("weak"+this.state.weak);
+            alert("Please change Your Password.It is so weak.")
         }
-        if(xScore==2){
-            alert("2");
-        }if(xScore==3){
-            alert("3");
-        }if(xScore==4){
-            alert("4");
+        if(this.state.xScores==2){
+            console.log("2");
+            this.setState({weak:true})
+            console.log("weak"+this.state.weak);
+            console.log(this.state.weak);
+            alert("Please change Your Password.It is so weak.")
+
+        }if(this.state.xScores==3){
+            console.log("3");
+            this.setState({weak:false})
+            console.log("weak"+this.state.weak);
+            console.log(this.state.weak);
+        }if(this.state.xScores==4){
+            console.log("4");
+            this.setState({weak:false})
+            console.log("weak"+this.state.weak);
+            console.log(this.state.weak);
         }
+        
         if ((this.state.firstname !== '') && (this.state.lastname !== '') && (this.state.username !== '') && (this.state.email !== '') && (this.state.passwd !== '') && (this.state.department !== '') ) {
-            
             if(re.test(this.state.email)===false){
                 alert("Invalid Email")
             }else{
-                if(this.state.passwd === this.state.conpasswd){
-                    firestore.getUser(this.state.email, this.getSuccess, this.getReject)
-                }else{
-                    alert("Confirm Password Not Match")
+                if(this.state.weak == false){
+                    
+                    if (validateCaptcha(user_captcha) == true ) {
+                        loadCaptchaEnginge(6);
+                        document.getElementById('user_captcha_input').value = "";
+                        if(this.state.passwd === this.state.conpasswd){
+                            firestore.getUser(this.state.email, this.getSuccess, this.getReject)
+                        }else{
+                            alert("Confirm Password Not Match")
+                        }
+                    }
+            
+                    else {
+                        alert('Captcha Does Not Match');
+                        document.getElementById('user_captcha_input').value = "";
+                    }
+                    
                 }
+                
+                
             }
             
         }else {
@@ -199,6 +232,10 @@ class Sign_Up extends Component {
                                     console.log(score, feedback)
                                     
                                     xScore=score
+                                    this.setState({xScores:score})
+                                    if(xScore>=3){
+                                        this.setState({weak:false})
+                                    }
                                     console.log("from score(Default)",score)
                                     console.log("from xScore",xScore); 
                                     }}
@@ -232,17 +269,12 @@ class Sign_Up extends Component {
                 </div>
                 <div className="container" style={{ backgroundColor: '#29292B',textAlign:'center' }}>
                     <div className="form-group">
-
                         <div className="col mt-3">
                             <LoadCanvasTemplate />
                         </div>
-
                         <div className="col mt-3">
                             <div><input placeholder="Enter Captcha Value" id="user_captcha_input" name="user_captcha_input" type="text"></input></div>
                         </div>
-
-                        
-
                     </div>
                 </div>
                 <div style={{ marginLeft: '43.5%', paddingTop: '1%' }}>
@@ -253,7 +285,7 @@ class Sign_Up extends Component {
                 </div>
                 <div style={{ marginLeft: '46.5%', paddingTop: '0.5%' }}>
                     <button style={{ width: 100, height: 40, borderRadius: '40px', fontSize: '16px', color: '#ffffff', cursor: 'pointer', backgroundColor: '#29292B' }}
-                        onClick={() => { window.location.href = "/" }}>
+                        onClick={() => {window.location.href = "/"}}>
                         Back
                     </button>
                 </div>
