@@ -4,6 +4,7 @@ import firestore from "../firebase/firestore"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Style.css';
 import { DataGrid } from '@mui/x-data-grid';
+import { Button, Link } from "@material-ui/core";
 
 import { connect } from 'react-redux';
 import { addUser , editUser} from '../actions/userAction';
@@ -16,12 +17,13 @@ const columns = [
       valueGetter: (params) =>
         `${params.getValue(params.id, 'firstName') || ''} ${
           params.getValue(params.id, 'lastName') || ''
-        }`,width: 440,
+        }`,width: 340,
     },
-    { field: 'department',headerName: 'Department',width: 240,},
-    { field: 'event',headerName: 'Event',width: 180,},
-    { field: 'date',headerName: 'Date',width: 250,},
-    { field: 'time',headerName: 'Time',width: 250,},
+    { field: 'department',headerName: 'Department',width: 190,},
+    { field: 'event',headerName: 'Event',width: 150,},
+    { field: 'date',headerName: 'Date',width: 170,},
+    { field: 'time',headerName: 'Time',width: 170,},
+    { field: 'description_his',headerName: 'Description',width: 340,},
   ];
 
   
@@ -51,6 +53,14 @@ class History extends Component {
         
     }
 
+    onBack =()=>{
+        if(this.props.userList[this.props.userList.length - 1].department === 'Officer'){
+            window.location.href="/homeUser"
+        }else{
+            window.location.href="/homeAdmin"
+        }
+    }
+
     getAllReject = (error) => {
         console.log(error)
     }
@@ -71,6 +81,9 @@ class History extends Component {
                     pageSize={5}
                     rowsPerPageOptions={[1]}
                 />
+                <div style={{display: 'flex', flexDirection: 'row',}}>
+                    <Button  class="button1" style={{marginLeft:'1200px'}} onClick={this.onBack}>Back</Button>
+                </div>
                 </div>
                 <div class='view' ></div>
                 <div style={{ width: '100%' ,height:'5vh' , backgroundColor:'#FFB636'}} ></div>

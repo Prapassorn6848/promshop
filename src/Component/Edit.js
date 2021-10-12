@@ -54,6 +54,7 @@ class Edit extends Component {
         this.state = {
             productList: [],
             deleteList:[],
+            description_his : "",
         };
     }
 
@@ -64,17 +65,27 @@ class Edit extends Component {
     //////////////////////////////////////////////
 
     onDelete =()=>{
-        
+
+        this.state.productList.forEach(item =>{
+            if(item.id == productID ){
+                this.setState({description_his: "Delete "+item.name})
+                this.setState({description_his: "Delete "+item.name})
+                console.log(this.state.description_his)
+            }
+        });
         firestore.deleteProduct(productID, this.deleteSuccess, this.deleteReject)
         
     }
     addSuccess = (doc) => {
         console.log(doc.id)
+        window.location.href="/edit"
     }
 
     addReject = (error) => {
         console.log(error)
     }
+
+    
     
     deleteSuccess = () => {
         let date = new moment().utcOffset('+07:00').format('DD/MM/YYYY')
@@ -87,7 +98,8 @@ class Edit extends Component {
             department : this.props.userList[this.props.userList.length - 1].department,
             event : "Delete",
             time : times,
-            date : date
+            date : date,
+            description_his: this.state.description_his
         }
         firestore.addHistory(history, this.addSuccess, this.addReject)
         console.log('Delete Success')
@@ -117,6 +129,14 @@ class Edit extends Component {
         console.log(error)
     }
 
+    onBack =()=>{
+        if(this.props.userList[this.props.userList.length - 1].department === 'Officer'){
+            window.location.href="/homeUser"
+        }else{
+            window.location.href="/homeAdmin"
+        }
+    }
+
     
 
     
@@ -139,11 +159,13 @@ class Edit extends Component {
                             rowsPerPageOptions={[1]}
 
                         />
-
+                        <div style={{display: 'flex', flexDirection: 'row',}}>
+                            <Button class="button1" style={{marginLeft:'950px',backgroundColor:'white'}} onClick={this.onDelete}>Confirm</Button>
+                            <Button  class="button1" onClick={this.onBack}>Back</Button>
+                        </div>
                     </div>
                     <div class='view' ></div>
                     <div style={{ width: '100%', height: '5vh', backgroundColor: '#FFB636' }} >
-                        <Button style={{backgroundColor:'white'}} onClick={this.onDelete}>Confirm</Button>
                     </div>
 
                 </div>
