@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import history from '../history'
 import './Modal.css';
 import styled, { css } from 'styled-components'
@@ -14,6 +13,7 @@ import firestore from '../firebase/firestore'
 import { Alert } from 'bootstrap';
 import { Base64 } from 'js-base64';
 import emailjs from 'emailjs-com';
+import Countdown from 'react-countdown';
 
 
 import { connect } from 'react-redux';
@@ -81,6 +81,9 @@ class Login extends Component {
             count:null,
             emailVar:null,
             modaltoomany: false,
+            modaltoomanyLock:false,
+            isLoock:false,
+            isLoock1:false,
 
             modalChangePass: false,
             newpassword:null,
@@ -140,6 +143,7 @@ class Login extends Component {
         e.preventDefault()
         firestore.getUser(this.state.email, this.success, this.reject)
     }
+    
     reject = (error) => {
         console.log(error)
       }
@@ -161,6 +165,7 @@ class Login extends Component {
             this.handleSubmit();
         }
       }
+      
       handleSubmit = () => {
         console.log("sub")
         emailjs
@@ -176,7 +181,7 @@ class Login extends Component {
           .catch(function (error) {
             console.log(error)
           });
-          this.handleModalLockUserClose();
+   
           this.generatePassUp();  
       }
       generatePassUp = () => {
@@ -198,8 +203,7 @@ class Login extends Component {
           firestore.updateUser(user, this.upSuccess, this.upReject)
     }
     upSuccess = () => {
-        alert('Update password success')
-        
+        this.handleModalToomanyLockClose();
     }
     
     upReject = (error) => {
@@ -223,6 +227,7 @@ class Login extends Component {
 
             if(this.state.count > 7){
                 this.handleModalToomanyOpen();
+                this.setState({count: 0})
             }else{
                 
                 firestore.getUser(this.state.email, this.getSuccess, this.getReject)
@@ -277,13 +282,13 @@ class Login extends Component {
                 console.log(this.state.countLogin)
             }
             if(this.state.countLogin > 3 && this.state.countLogin < 5){
+                this.handleModalPasswrongOpen();
                 // alert("เปลี่ยนรหัสดิ้")  
                 console.log("eiei")
             
             }
             if(this.state.countLogin === 5){
-                alert("โปรดเปลี่ยนรหัสผ่าน")
-                this.handleModalToomanyOpen();
+                this.handleModalToomanyLockOpen();
             
             }
             
@@ -351,7 +356,11 @@ class Login extends Component {
     };
     ///////////////////////////////////////////////
     handleModalToomanyClose = (e) => {
+        // setTimeout(() => {
+        //     this.setState({isLoock1:true})
+        // }, 3000);
         this.setState({ modaltoomany: false });
+        
     };
 
 
@@ -359,6 +368,31 @@ class Login extends Component {
         this.setState({ modaltoomany: true });
     };
     ///////////////////////////////////////////////
+
+    
+    ///////////////////////////////////////////////
+    handleModalToomanyLockClose = (e) => {
+        this.setState({ modaltoomanyLock: false });
+    };
+
+
+    handleModalToomanyLockOpen = () => {
+        this.setState({ modaltoomanyLock: true, isLoock:true });
+        setTimeout(() => {
+            this.setState({isLoock:false})
+        }, 60000);
+    };
+    ///////////////////////////////////////////////
+    
+    settime=()=>{
+        console.log(this.state.isLoock1 +"first")
+        this.setState({isLoock1 : true})
+        console.log(this.state.isLoock1 + "secons")
+        setTimeout(() => {
+            this.setState({isLoock1 : false})
+            this.handleModalToomanyClose();
+        }, 30000);
+    }
 
     //Captcha
 
@@ -620,6 +654,7 @@ class Login extends Component {
                                     />
                                 </div>
                                 <div style={{height:"3vh"}}></div>
+                                
                             </div>
                             <div style={{textAlign:'end', paddingTop: "5",paddingRight:'10%'}}>
                                 <ButtonTry style={{ fontSize: 20 }} onClick={this.onChangePassword}>OK</ButtonTry>
@@ -639,8 +674,38 @@ class Login extends Component {
                                     <a1 style={{ color: "#29292B", fontSize: "24px", fontWeight: "600" }}>Too many login attempts.</a1>
                                     <div style={{ height: "1vh" }}></div>
                                 </div>
+                                <div style={{paddingLeft: '30%', color:'black'}}>
+                                    <a1 style={{color:'black'}} >Please try again in </a1>
+                                    <a1></a1>
+                                    <Countdown date={Date.now() + 10000 * 6}>
+                                    </Countdown>
+                                </div>
                                 <div style={{ textAlign: 'center', paddingTop: "10px" }}>
-                                    <ButtonTry style={{ fontSize: 20 }} onClick={this.handleModalToomanyClose}>OK</ButtonTry>
+                                    <ButtonTry disabled={this.state.isLoock1} style={{ fontSize: 20 }} onClick={this.settime} >OK</ButtonTry>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div hidden={!this.state.modaltoomanyLock}>
+                        <div className="modal-backgroundfill" >
+                            <div className="modal-cardfill">
+                                <div style={{ textAlign: 'center', justifyContent: "center", alignItems: "center" }}>
+                                    <div style={{ paddingTop: 8 }}>
+                                        <img className="picWarning" src={Warning} />
+                                    </div>
+                                    <a1 style={{ color: "#29292B", fontSize: "24px", fontWeight: "600" }}>Too many login attempts Lock.</a1>
+                                    <div style={{ height: "0.5vh" }}></div>
+                                </div>
+                                <div style={{paddingLeft: '30%', color:'black'}}>
+                                    <a1 style={{color:'black'}} >Please try again in </a1>
+                                    <a1></a1>
+                                    <Countdown date={Date.now() + 10000 * 6}>
+                                    </Countdown>
+                                </div>
+                                <div style={{ textAlign: 'center', paddingTop: "8px" }}>
+                                    <ButtonTry disabled={this.state.isLoock} style={{ fontSize: 20 }} onClick={this.LockUser}>OK</ButtonTry>
+                                    
                                 </div>
                             </div>
                         </div>
