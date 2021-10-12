@@ -186,7 +186,7 @@ class Sign_Up extends Component {
                         </div>
                     </div>
                     <div style={{ textAlign: 'left', marginLeft: '35%' }}>
-                        <input style={{ marginTop: '10px', width: 460, height: 30, color: "black" }} type="text" value ={passwd} name="password"
+                        <input style={{ marginTop: '10px', width: 460, height: 30, color: "black" }} type="password" value ={passwd} name="password"
                             onChange={txt => this.setState({ passwd: txt.target.value })} />
                             <PasswordStrengthBar style={{width:459}}
                                     password={passwd}
@@ -210,7 +210,7 @@ class Sign_Up extends Component {
                         </div>
                     </div>
                     <div style={{ textAlign: 'left', marginLeft: '35%', }}>
-                        <input style={{ marginTop: '10px', width: 460, height: 30, color: "black" }} type="text" name="password" />
+                        <input style={{ marginTop: '10px', width: 460, height: 30, color: "black" }} type="password" name="password" />
                     </div>
                 </div>
                 <div style={{ alignItems: "center" }}>
